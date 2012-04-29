@@ -1,0 +1,24 @@
+[submodule "janus.symlink/latex-box"]
+	path = janus.symlink/latex-box
+	url = git://github.com/vim-scripts/LaTeX-Box.git
+[submodule "janus.symlink/busybee_colorscheme"]
+	path = janus.symlink/busybee_colorscheme
+	url = git://github.com/vim-scripts/BusyBee.git
+[submodule "janus.symlink/corn_colorscheme"]
+	path = janus.symlink/corn_colorscheme
+	url = git://github.com/vim-scripts/corn.git
+[submodule "janus.symlink/kellys_colorscheme"]
+	path = janus.symlink/kellys_colorscheme
+	url = git://github.com/vim-scripts/kellys.git
+[submodule "janus.symlink/vim-ruby"]
+	path = janus.symlink/vim-ruby
+	url = git://github.com/vim-ruby/vim-ruby.git
+[submodule "janus.symlink/vim-smartinput"]
+	path = janus.symlink/vim-smartinput
+	url = git://github.com/kana/vim-smartinput.git
+[submodule "janus.symlink/vim-haml"]
+	path = janus.symlink/vim-haml
+	url = https://github.com/tpope/vim-haml.git
+[submodule "vim.symlink"]
+	path = vim.symlink
+	url = git://github.com/carlhuda/janus.git
