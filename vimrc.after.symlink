@@ -101,8 +101,8 @@ vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
 " Backups
-set backupdir=~/.vimtmp/
-set directory=~/.vimtmp/
+set backupdir=~/.dotfiles/vimtmp/
+set directory=~/.dotfiles/vimtmp/
 set backup                          " enable backup
 
 " show matching brackets

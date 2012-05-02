@@ -8,4 +8,5 @@ backup/*
 #submodules
 janus.symlink/*
 vim.symlink/*
+vimtmp/*
 
