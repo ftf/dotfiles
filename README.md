@@ -42,6 +42,7 @@ Store them at .dotfiles/bash as somefile.my.bash
 Post installation
 -----------------
 cd .vim && rake -> finishes janus/vim installation
+
 get lolcat gem
 
 Submodules
