@@ -62,4 +62,8 @@ path_prompt=%1~
 PS1='$(git_uncommited)$base_prompt%{$fg_bold[cyan]%}$path_prompt%{$reset_color%} ' # $post_prompt'   #%{$fg_bold[red]%}$(commit_status)%{$reset_color%}$(hg_prompt_info)$(git_current_branch) %{$fg_bold[cyan]%}$%{$reset_color%} $post_prompt'
 PS2='$base_prompt%{$fg_bold[cyan]%}$path_prompt%{$reset_color%}%{$fg_bold[blue]%}$(vcs_status) %_> $post_prompt'
 PS3='$base_prompt%{$fg_bold[cyan]%}$path_prompt%{$reset_color%}%{$fg[blue]%}$(vcs_status) ?# $post_prompt'
-RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch) %{$fg_bold[blue]%}$(~/.rvm/bin/rvm-prompt)%{$reset_color%}'
+if [ -e "$HOME/.rvm/bin/rvm-prompt" ]; then
+  RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch) %{$fg_bold[blue]%}$(~/.rvm/bin/rvm-prompt)%{$reset_color%}'
+else
+  RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch)'
+fi
