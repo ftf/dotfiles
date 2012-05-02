@@ -84,6 +84,7 @@ function install() {
       
     else 
       echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
+      ln -s ${PWD}/$file $target
     fi
   done
 }
