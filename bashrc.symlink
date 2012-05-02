@@ -21,7 +21,8 @@ export LESS="-erX"
 #export PATH=/usr/local/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/sbin:/usr/local/bin:$PATH
 export DISPLAY=:0.0
-export LANG="de_DE.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 export HISTCONTROL="erasedups"
 export HISTSIZE=10000
 shopt -s histappend
