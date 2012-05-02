@@ -29,6 +29,7 @@ Installation:
 - or if the system has no git installed, grab the zip file 
 - - wget -r https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles
 - cd .dotfiles 
+- git submodule init && git submodule update
 - ./install.sh 
 
 Custom ZSH files
