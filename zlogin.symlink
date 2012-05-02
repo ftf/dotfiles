@@ -1,3 +1,7 @@
 echo
-fortune ~/.dotfiles/fortune | lolcat
+if [[ "$OSTYPE" =~ darwin ]]; then
+  fortune ~/.dotfiles/fortune/osx | lolcat
+elif [[ "$OSTYPE" =~ linux ]]; then
+  fortune ~/.dotfiles/fortune/linux | lolcat
+fi
 echo
