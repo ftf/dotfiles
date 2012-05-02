@@ -1,0 +1,101 @@
+# we like colours
+set -g default-terminal "screen-256color"
+
+# change activator to ctrl+z
+unbind C-b
+set-option -g prefix C-z
+bind C-z send-prefix
+bind-key z send-prefix
+
+# history
+set -g history-limit 1000
+
+# Allows for faster key repetition
+set -s escape-time 0
+
+# Set window notifications
+setw -g monitor-activity on
+set -g visual-activity on
+
+# aggressive window resizing
+setw -g aggressive-resize on
+
+# start window numbering at 1
+set -g base-index 1
+
+# default statusbar colors
+set -g status-fg white
+set -g status-bg default
+
+# pane border
+set -g pane-active-border-bg default
+set -g pane-active-border-fg blue
+
+# command prompt
+set -g message-bg blue
+set -g message-fg white
+set -g message-attr bright
+
+# default window title colors
+set-window-option -g window-status-fg white
+set-window-option -g window-status-bg default
+set-window-option -g window-status-attr bright
+#set-window-option -g window-status-alert-attr none
+#set-window-option -g window-status-alert-bg default
+#set-window-option -g window-status-alert-fg blue
+
+# active window title colors
+set-window-option -g window-status-current-fg white
+set-window-option -g window-status-current-bg red
+#set-window-option -g window-status-current-attr bright 
+
+# change status window look
+set-window-option -g window-status-format '#I: #W'
+set-window-option -g window-status-current-format '#I: #W'
+
+# statusline
+set -g status-utf8 on
+set -g status-left-length 30
+set -g status-right-length 60
+set -g status-justify centre
+set -g status-left '#[fg=green,bright][ #h ]['
+set -g status-right "#[fg=green,bright][#[fg=blue,bright] #(uptime|awk '{ print $(NF-2\\), $(NF-1\\), $(NF\\); }') #[fg=green,bright]][ #[fg=blue,bright]%d.%m.%Y %H:%M #[fg=green,bright]]"
+
+# scrollback buffer n lines
+set -g history-limit 5000
+
+# More straight forward key bindings for splitting
+unbind %
+bind H split-window -h
+unbind '"'
+bind V split-window -v
+bind k select-pane -U
+bind j select-pane -D
+bind h select-pane -L
+unbind l 
+bind l select-pane -R
+bind m last-window
+
+bind-key C-r source ~/.tmux.conf
+
+unbind-key C-Up
+unbind-key C-Down
+bind-key C-h swap-pane -D
+unbind-key C-left
+unbind-key C-Right
+bind-key C-l swap-pane -U
+
+# Select panes with mouse click
+set-option -g mouse-select-pane on
+
+# Clock
+set-window-option -g clock-mode-style 24
+
+# show pane number longer activator + q
+set -g display-panes-time 1500
+
+# Set up resize-pane keys
+bind-key + resize-pane -D 3
+bind-key / resize-pane -L 3
+bind-key - resize-pane -U 3
+bind-key * resize-pane -R 3

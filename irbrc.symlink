@@ -1,0 +1,7 @@
+require 'rubygems'
+require 'wirble'
+require 'interactive_editor'
+require 'ap'
+
+Wirble.init
+Wirble.colorize

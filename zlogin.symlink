@@ -1,0 +1,3 @@
+echo
+fortune ~/.dotfiles/fortune | lolcat
+echo

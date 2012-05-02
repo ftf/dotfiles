@@ -1,0 +1,57 @@
+# Use hard limits, except for a smaller stack and no core dumps
+unlimit
+limit stack 8192
+limit core 0
+limit -s
+umask 022
+
+# Shell functions
+#setenv() { typeset -x "${1}${1:+=}${(@)argv[2,$#]}" }  # csh compatibility
+freload() { while (( $# )); do; unfunction $1; autoload -U $1; shift; done }
+
+
+# Autoload all shell functions from all directories in $fpath (following
+# symlinks) that have the executable bit on (the executable bit is not
+# necessary, but gives you an easy way to stop the autoloading of a
+# particular shell function). $fpath should not be empty for this to work.
+for func in $^fpath/*(N-.x:t); autoload $func
+
+# automatically remove duplicates from these arrays
+typeset -U path cdpath fpath manpath
+
+#m# k Shift-tab Perform backwards menu completion
+if [[ -n "$terminfo[kcbt]" ]]; then
+  bindkey "$terminfo[kcbt]" reverse-menu-complete
+elif [[ -n "$terminfo[cbt]" ]]; then # required for GNU screen
+  bindkey "$terminfo[cbt]"  reverse-menu-complete
+fi
+
+#k# Trigger menu-complete
+bindkey '\ei' menu-complete  # menu completion via esc-i
+
+# caching
+[[ -d $ZSHDIR/cache ]] && zstyle ':completion:*' use-cache yes && \
+  zstyle ':completion::complete:*' cache-path $ZSHDIR/cache/
+bindkey '\e[A'  up-line-or-search       # cursor up
+bindkey '\e[B'  down-line-or-search     # <ESC>-
+
+# Set/unset  shell options
+setopt   notify globdots correct pushdtohome cdablevars autolist
+setopt   correctall autocd recexact longlistjobs
+setopt   autoresume histignoredups pushdsilent noclobber
+setopt   autopushd pushdminus extendedglob rcquotes mailwarning
+unsetopt bgnice autoparamslash
+
+# Autoload zsh modules when they are referenced
+zmodload -a zsh/zpty zpty
+zmodload -a zsh/zprof zprof
+zmodload -ap zsh/mapfile mapfile
+# stat(1) is now commonly an external command, so just load zstat
+zmodload -aF zsh/stat b:zstat
+
+bindkey '^I' complete-word # complete on tab, leave expansion to _expand
+
+for config_file (~/.dotfiles/zsh/*.zsh) source $config_file
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

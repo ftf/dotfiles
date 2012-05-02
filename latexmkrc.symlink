@@ -1,0 +1,5 @@
+$pdf_mode = 1;
+#$pdf_update_method = 0;
+$pdflatex = 'pdflatex -synctex=1 %O %S';
+$clean_ext = "aux log paux lox pdfsync out synctex.gz";
+$pdf_previewer = "open -a /Applications/Skim.app";
