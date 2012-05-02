@@ -4,7 +4,8 @@
 # backup of original dotfiles
 backup/*
 # custom zsh files
-*.my.zsh 
+*.my.zsh
+*.my.bash
 #submodules
 janus.symlink/*
 vim.symlink/*
