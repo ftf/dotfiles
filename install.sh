@@ -23,7 +23,7 @@ function install() {
     if [ -e "$target" ]; then
       if $backupall ; then
         echo -e "$SPACER$YELLOW-$COLORRESET moving $target to backup"
-        mv $target $backupdir
+        mv $target $backupdir/
         echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
         ln -s ${PWD}/$file $target
       elif $deleteall ; then
@@ -39,7 +39,7 @@ function install() {
         case $filedecision in
          b)
            echo -e "$SPACER$YELLOW-$COLORRESET moving $target to .dotfiles/backup/.$file"
-           mv $target $backupdir
+           mv $target $backupdir/
            echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
            ln -s ${PWD}/$file $target
            ;;
@@ -47,7 +47,7 @@ function install() {
            echo backup all
            backupall=true
            echo -e "$SPACER$YELLOW-$COLORRESET moving $target to .dotfiles/backup/.$file"
-           mv $target $backupdir
+           mv $target $backupdir/
            echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
            ln -s ${PWD}/$file $target
            ;;
@@ -83,7 +83,7 @@ function install() {
       fi
       
     else 
-      echo linking $file to $target
+      echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
     fi
   done
 }
