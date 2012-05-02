@@ -2,6 +2,6 @@ echo
 if [[ "$OSTYPE" =~ darwin ]]; then
   fortune ~/.dotfiles/fortune/osx | lolcat
 elif [[ "$OSTYPE" =~ linux ]]; then
-  fortune ~/.dotfiles/fortune/linux | lolcat
+  fortune ~/.dotfiles/fortune/linux | iconv --from-code=ISO-8859-1 --to-code=UTF-8 | lolcat
 fi
 echo
