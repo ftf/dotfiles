@@ -29,22 +29,29 @@ Installation:
 - or if the system has no git installed, grab the zip file 
 - - wget -r https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles
 - cd .dotfiles 
-- git submodule init && git submodule update
 - ./install.sh 
 
 Custom ZSH files
 ----------------
 Store them at .dotfiles/zsh/ as somefile.my.zsh
 
-Custom BaSH files
+Custom BASH files
 -----------------
 Store them at .dotfiles/bash as somefile.my.bash
 
 Post installation
 -----------------
+git submodule init && git submodule update
 cd .vim && rake -> finishes janus/vim installation
 
 get lolcat gem
+
+Will the script kill my current config files?
+---------------------------------------------
+If you want, yes.
+
+Or you can skip to the next file without replacing it, or you can choose
+to move your file to .dotfiles/backup.
 
 Submodules
 ----------
