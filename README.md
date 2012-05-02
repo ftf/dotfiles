@@ -11,6 +11,7 @@ pure shell based installation. After the .dotfile installation we
 can install ruby via [rvm](http://rvm.io).
 
 ### install.sh options
+```
 ./install.sh install 
   Symlink the dotfiles to the home directory
 
@@ -19,20 +20,24 @@ can install ruby via [rvm](http://rvm.io).
 
 ./install.sh update
   Fetch updates from the repository and update symlinks if needed
-
+```
 
 Installation: 
 -------------
 - Open a fresh shell session
 - git clone git://github.com/ftf/dotfiles .dotfiles
 - or if the system has no git installed, grab the zip file 
-- > wget -r https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles
+- - wget -r https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles
 - cd .dotfiles 
 - ./install.sh 
 
 Custom ZSH files
 ----------------
 Store them at .dotfiles/zsh/ as somefile.my.zsh
+
+Custom BaSH files
+-----------------
+Store them at .dotfiles/bash as somefile.my.bash
 
 Submodules
 ----------

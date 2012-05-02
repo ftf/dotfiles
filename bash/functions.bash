@@ -1,4 +1,4 @@
-
+#!/bin/bash
 manp()
 {
 		  	man -t "${1}" | open -f -a Skim

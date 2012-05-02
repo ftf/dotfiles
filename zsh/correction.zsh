@@ -1,3 +1,4 @@
+#!/bin/zsh
 setopt correct_all
 
 alias man='nocorrect man'

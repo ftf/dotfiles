@@ -1,3 +1,4 @@
+#!/bin/zsh
 # TODO: Explain what some of this does..
 
 bindkey -e

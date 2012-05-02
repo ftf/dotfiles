@@ -1,3 +1,4 @@
+#!/bin/bash
 alias webshare='python -c "import SimpleHTTPServer;SimpleHTTPServer.test()"'
 alias top='top -u -s1 20'
 alias l='ls -hasl'

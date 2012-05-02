@@ -1,3 +1,4 @@
+#!/bin/zsh
 # ------------------------------------------------------------------------------
 #          FILE:  osx.plugin.zsh
 #   DESCRIPTION:  oh-my-zsh plugin file.
