@@ -34,12 +34,6 @@ alias getmtu='ping -D -g 1400 -G 1500 -h1 heise.de'
 #alias stop_tomcat='$CATALINA_HOME/bin/shutdown.sh'
 alias top='top -u -s1 20'
 
-## Open current directory
-alias oo='open .'
-
-## Quick-look a file (^C to close)
-alias ql='qlmanage -p 2>/dev/null'
-
 ## Start a local SMTP server and dump emails sent to it to the console
 alias smtpconsole='python -m smtpd -n -c DebuggingServer localhost:1025'
 
@@ -52,27 +46,38 @@ alias hl='less -R'
 ## Show history
 alias history='fc -l 1'
 
-# Use macvim vim
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+# OS X only aliases
+if [[ "$OSTYPE" =~ darwin ]]; then
+  ## Quick-look a file (^C to close)
+  alias ql='qlmanage -p 2>/dev/null'
+  
+  ## Open current directory
+  alias oo='open .'
+
+  # use macvim's vim
+  alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+
+  alias bubu='brew update && brew upgrade'
+  #alias cleanservices='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
+
+  alias tc='/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt'
+
+  alias nginx-up='sudo /usr/local/sbin/nginx -g "daemon on;"'
+  alias nginx-down='sudo nginx -s stop'
+
+  alias redis-up='/usr/local/bin/redis-server /usr/local/etc/redis.conf'
+  alias redis-down='killall redis-server'
+
+  alias mysql-up='/usr/local/bin/mysql.server start'
+  alias mysql-down='/usr/local/bin/mysql.server stop'
+
+  alias psgrs-up='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+  alias psgrs-down='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+
+fi
+
 
 alias l='ls -hasl'
 alias ..='cd ..'
 alias ...='cd ../..'
-alias bubu='brew update && brew upgrade'
-#alias cleanservices='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
-
-alias tc='/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt'
-
-
-alias nginx-up='sudo /usr/local/sbin/nginx -g "daemon on;"'
-alias nginx-down='sudo nginx -s stop'
-
-alias redis-up='/usr/local/bin/redis-server /usr/local/etc/redis.conf'
-alias redis-down='killall redis-server'
-
-alias mysql-up='/usr/local/bin/mysql.server start'
-alias mysql-down='/usr/local/bin/mysql.server stop'
-
-alias psgrs-up='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias psgrs-down='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 

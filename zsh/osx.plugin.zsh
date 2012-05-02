@@ -6,7 +6,7 @@
 #       VERSION:  1.0.1
 # ------------------------------------------------------------------------------
 
-
+if [[ "$OSTYPE" =~ darwin ]]; then
 function tab() {
   local command="cd \\\"$PWD\\\""
   (( $# > 0 )) && command="${command}; $*"
@@ -97,4 +97,4 @@ function trash() {
   done
   IFS=$temp_ifs
 }
-
+fi

@@ -9,6 +9,10 @@ alias ...='cd ../..'
 #alias sgu='sudo gem update'
 alias sgu='rvm all do gem update'
 alias bubu='brew update && brew upgrade'
-alias cleanservices='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
-alias sitm='osascript ~/Library/Scripts/Applications/Safari/Open\ Source\ in\ TextMate.scpt'
+
+# OS X only aliases
+if [[ "$OSTYPE" =~ darwin ]]; then
+  alias cleanservices='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
+  alias sitm='osascript ~/Library/Scripts/Applications/Safari/Open\ Source\ in\ TextMate.scpt'
+fi
 
