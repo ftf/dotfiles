@@ -7,8 +7,8 @@ install.sh
 Inspired by [holmans dotfiles](https://github.com/holman/dotfiles)
 Rakefile.
 Since some moron systems don't ship with ruby I wanted to use a 
-pure shell based installation. After the .dotfile installation we 
-can install ruby via [rvm](http://rvm.io).
+pure shell based installation. Luckily we can install ruby later with
+the help of [rvm](http://rvm.io).
 
 ### install.sh options
 ```
@@ -27,7 +27,7 @@ Installation:
 - Open a fresh shell session
 - git clone git://github.com/ftf/dotfiles .dotfiles
 - or if the system has no git installed, grab the zip file 
-- -> wget -r https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles
+- -> wget https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles && rm master
 - cd .dotfiles 
 - ./install.sh 
 
