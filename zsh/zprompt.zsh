@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # -----------------------------------------------------
-# escape the fcking colors
+# Warning: escape the fcking colors!
 # -----------------------------------------------------
 
 
@@ -29,9 +29,9 @@ function git_current_branch() {
 
 function git_uncommited {
   git rev-parse --git-dir >/dev/null 2>/dev/null && if [[ `git ls-files -m | wc -l | awk '{ print $1; }'` -gt 0 ]]; then 
-    echo "%{$fg_bold[red]%}⤹%{$reset_color%} "
+    echo "%{$fg_bold[red]%}▼%{$reset_color%} "
   else 
-    echo "%{$fg_bold[green]%}⤴%{$reset_color%} " 
+    echo "%{$fg_bold[green]%}▷%{$reset_color%} " 
   fi
 }
 
