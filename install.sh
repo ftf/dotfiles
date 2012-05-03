@@ -1,5 +1,8 @@
 #!/bin/bash 
 
+# The MIT License (MIT)
+# Copyright (c) 2012 Fabian Franke http://fabianfranke.de
+
 GREEN="\033[0;32m"
 YELLOW="\033[0;33m"
 RED="\033[0;31m"
