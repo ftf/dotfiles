@@ -114,11 +114,11 @@ function usage() {
 How to use this:
 
 ./install.sh install 
-  Symlink the dotfiles to the home directory
+  Symlink dotfiles to the home directory
 
 ./install.sh uninstall
-  Remove all symlinks to this directory and restore from backup if possible
-
+  Remove all dotfile symlinks from home directory and restore from backup if possible
+  
 ./install.sh update
   Fetch updates from the repository and update symlinks if needed
 EOF

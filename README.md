@@ -13,10 +13,10 @@ can install ruby via [rvm](http://rvm.io).
 ### install.sh options
 ```
 ./install.sh install 
-  Symlink the dotfiles to the home directory
+  Symlink dotfiles to the home directory
 
 ./install.sh uninstall
-  Remove all symlinks to this directory and restore from backup if possible
+  Remove all dotfile symlinks from home directory and restore from backup if possible
 
 ./install.sh update
   Fetch updates from the repository and update symlinks if needed
@@ -27,24 +27,24 @@ Installation:
 - Open a fresh shell session
 - git clone git://github.com/ftf/dotfiles .dotfiles
 - or if the system has no git installed, grab the zip file 
-- - wget -r https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles
+- -> wget -r https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles
 - cd .dotfiles 
 - ./install.sh 
 
 Custom ZSH files
 ----------------
-Store them at .dotfiles/zsh/ as somefile.my.zsh
+Store them at .dotfiles/zsh/ as somefile.my.zsh. Git will ignore them so
+you want share any sensitive information if you fork this repo.
 
 Custom BASH files
 -----------------
-Store them at .dotfiles/bash as somefile.my.bash
+As above, store them at .dotfiles/bash as somefile.my.bash
 
 Post installation
 -----------------
-git submodule init && git submodule update
-cd .vim && rake -> finishes janus/vim installation
-
-get lolcat gem
+- git submodule init && git submodule update
+- cd .vim && rake -> finishes janus/vim installation
+- get lolcat gem for color awesomeness
 
 Will the script kill my current config files?
 ---------------------------------------------
@@ -63,4 +63,3 @@ Submodules
 - [Vim plugin: vim-haml](https://github.com/tpope/vim-haml)
 - [Vim plugin: vim-ruby](https://github.com/vim-ruby/vim-ruby)
 - [Vim plugin: vim-smartinput](https://github.com/kana/vim-smartinput)
-
