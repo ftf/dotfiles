@@ -27,6 +27,20 @@ function lepasta {
   fi
 }
 
+# Gentoo only functions
+if `type emerge >/dev/null 2>&1`; then
+  up() {
+    case $@ in
+      fixdeps)
+        sudo revdep-rebuild -pqi
+        ;;
+      *)
+        sudo emerge -avq --update --newuse --deep world
+        ;;
+    esac
+  }
+fi
+
 # OS X only functions
 if [[ "$OSTYPE" =~ darwin ]]; then
   function manp() {
