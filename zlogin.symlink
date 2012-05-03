@@ -11,7 +11,7 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   fi
 elif [[ "$OSTYPE" =~ linux ]]; then
   if `type fortune>/dev/null 2>&1` ; then
-    fortune ~/.dotfiles/fortune/linux | iconv --from-code=ISO-8859-1 --to-code=UTF-8 | cattype
+    fortune ~/.dotfiles/fortune/linux | iconv --from-code=ISO-8859-1 --to-code=UTF-8 | $cattype
   fi
 fi
 echo
