@@ -74,6 +74,9 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   alias psgrs-up='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
   alias psgrs-down='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
+  alias proxy-on='networksetup -setwebproxystate Wi-Fi on'
+  alias proxy-off='networksetup -setwebproxystate Wi-Fi off'
+  alias proxy-status='networksetup -getwebproxy Wi-Fi'
 fi
 
 

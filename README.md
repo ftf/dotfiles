@@ -44,7 +44,7 @@ Post installation
 -----------------
 - git submodule init && git submodule update
 - cd .vim && rake -> finishes janus/vim installation
-- get [lolcat](https://github.com/busyloop/lolcat) gem for color awesomeness
+- get the [lolcat](https://github.com/busyloop/lolcat) gem for color awesomeness
 
 Will the script kill my current config files?
 ---------------------------------------------
