@@ -33,8 +33,8 @@ Installation:
 
 Custom ZSH files
 ----------------
-Store them at .dotfiles/zsh/ as somefile.my.zsh. Git will ignore them so
-you want share any sensitive information if you fork this repo.
+Store them at .dotfiles/zsh/ as somefile.my.zsh. Git will ignore them, so
+you won't share any sensitive information if you fork this repo.
 
 Custom BASH files
 -----------------
