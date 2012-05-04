@@ -20,6 +20,10 @@ the help of [rvm](http://rvm.io).
 
 ./install.sh update
   Fetch updates from the repository and update symlinks if needed
+
+./install.sh getprivatedots
+  fetch dotfiles with sensitive informations from given source 
+  extracts, decrypts and links new dotfiles
 ```
 
 Installation: 

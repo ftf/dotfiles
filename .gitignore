@@ -1,11 +1,17 @@
 # OSX metadata files
 .DS_Store
 ._*
+
 # backup of original dotfiles
 backup/*
+
 # custom zsh files
 *.my.zsh
 *.my.bash
+
+# sensitive dotfiles
+*.priv.symlink
+
 #submodules
 janus.symlink/*
 vim.symlink/*

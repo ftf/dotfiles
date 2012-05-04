@@ -111,6 +111,18 @@ function update() {
   install
 }
 
+function getprivatedots() {
+  echo 
+}
+
+function packprivatedots() {
+  echo 
+}
+
+function delprivatedots() {
+  echo
+}
+
 function usage() {
   cat << EOF
 How to use this:
@@ -123,6 +135,10 @@ How to use this:
   
 ./install.sh update
   Fetch updates from the repository and update symlinks if needed
+
+./install.sh getprivatedots
+  fetch dotfiles with sensitive informations from given source 
+  extracts, decrypts and links new dotfiles
 EOF
 }
 
