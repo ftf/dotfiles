@@ -34,6 +34,9 @@ if `type emerge >/dev/null 2>&1`; then
       fixdeps)
         sudo revdep-rebuild -pqi
         ;;
+      config)
+        sudo dispatch-conf
+        ;;
       *)
         sudo emerge -avq --update --newuse --deep world
         ;;
