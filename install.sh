@@ -8,6 +8,7 @@ YELLOW="\033[0;33m"
 RED="\033[0;31m"
 COLORRESET="\033[0m"
 SPACER="   "
+packfilename='privdots'
 
 function install() { 
   backupall=false
@@ -15,12 +16,29 @@ function install() {
   skipall=false
   backupdir=${PWD}/backup
 
-  for file in *.symlink; do
-    target="$HOME/.${file%.*}" 
+  if [ ! -z $1 ]; then
+    prefix=$1
+  fi
+  
+  if ls $prefix*.symlink >/dev/null 2>&1; then
+    echo -e "$GREEN-$COLORRESET found some .symlink files, starting symlinking"
+  else
+    echo -e "$RED-$COLORRESET found no .symlink files, nothing to do"
+    exit
+  fi
+
+  for file in $prefix*.symlink; do
+
+    target="$HOME/.`basename ${file%.*}`" 
+    purefilename=`basename ${file%.*}`
+
+    if [ $file == "" ]; then
+      echo empty file!
+    fi
     
     if [ "`readlink $target`" ==  "${PWD}/$file" ]; then
       continue
-      fi
+    fi
 
     if [ -e "$target" ]; then
       if $backupall ; then
@@ -40,7 +58,7 @@ function install() {
         read filedecision
         case $filedecision in
          b)
-           echo -e "$SPACER$YELLOW-$COLORRESET moving $target to .dotfiles/backup/.$file"
+           echo -e "$SPACER$YELLOW-$COLORRESET moving $target to .dotfiles/backup/.$purefilename"
            mv $target $backupdir/
            echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
            ln -s ${PWD}/$file $target
@@ -48,7 +66,7 @@ function install() {
          B)
            echo backup all
            backupall=true
-           echo -e "$SPACER$YELLOW-$COLORRESET moving $target to .dotfiles/backup/.$file"
+           echo -e "$SPACER$YELLOW-$COLORRESET moving $target to .dotfiles/backup/.$purefilename"
            mv $target $backupdir/
            echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
            ln -s ${PWD}/$file $target
@@ -93,34 +111,91 @@ function install() {
 
 function uninstall() {
 
-  for sym in *.symlink; do
-    target="$HOME/.${sym%.*}" 
+  if [ ! -z $1 ]; then
+    prefix=$1
+  fi
+
+  for sym in $prefix*.symlink; do
+    purefilename=`basename ${sym%.*}`
+    target="$HOME/.$purefilename" 
     if [ "`readlink $target`" ==  "${PWD}/$sym" ]; then
       echo -e "$RED-$COLORRESET Deleting $target"
       rm $target
-      if [ -e "backup/.${sym%.*}" ]; then
+      if [ -e "backup/.$purefilename" ]; then
         echo -e "$SPACER$GREEN+$COLORRESET restoring original file"
-        mv backup/.${sym%.*} $HOME/
+        mv backup/.$purefilename $HOME/
       fi
     fi
   done
 }
 
 function update() {
-  git pull
+  echo -e "$GREEN-$COLORRESET Fetching updates from github"
+  git pull >/dev/null
+  link
+}
+
+function link() {
+  echo -e "$GREEN-$COLORRESET Trying to link new files"
   install
 }
 
-function getprivatedots() {
-  echo 
+function installprivatedots() {
+  echo -e "$GREEN-$COLORRESET Decrypting, unpacking and linking your private dotfiles"
+  if [ -e "$packfilename.des3" ]; then
+    openssl des3 -a -d -in $packfilename.des3 -out $packfilename.tbz2 && tar xfj $packfilename.tbz2 && rm $packfilename.tbz2 $packfilename.des3
+  else 
+    echo -e "$RED-$COLORRESET ERROR: Cannot find transport container."
+    echo -e "$SPACER$RED-$COLORRESET It should be named $packfilename.des3"
+  fi
+  install "privatedots/"
+}
+
+function linkprivatedots() {
+  echo -e "$GREEN-$COLORRESET Updating links from your private dotfiles"
+  install "privatedots/"
 }
 
 function packprivatedots() {
-  echo 
+  echo -e "$GREEN-$COLORRESET compressing and encrypting private dotfiles"
+  echo -e "$SPACER$YELLOW-$COLORRESET prompting for a password in a little while" 
+  tar -jcf $packfilename.tbz2 privatedots && openssl des3 -a -in $packfilename.tbz2 -out $packfilename.des3 && rm $packfilename.tbz2
+  echo
+  if [ -e "$packfilename.des3" ]; then
+    echo -e "$GREEN-$COLORRESET your private dotfiles are ready at $PWD/$packfilename.des3"
+    echo -e "$SPACER Transfer them over to your other installations and run ./installer.sh installprivatedots"
+  else
+    echo -e "$RED-$COLORRESET something went terribly wrong"
+  fi
 }
 
 function delprivatedots() {
-  echo
+  echo -e "$SPACER$RED-$COLORRESET unlinking and deleting your private dotfiles from this box"
+  echo -e "$SPACER  CTRL+C to abort now"
+
+  echo -en "$RED"
+  for i in {1..5}; do
+    echo -n . 
+    sleep 1
+  done
+  echo -e "$COLORRESET"
+
+  uninstall "privatedots/"
+  echo "rm privatedots/*"
+}
+
+function vimupdate() {
+  if `type git >/dev/null 2>&1`; then
+    if [ `git submodule | wc -l | awk '{ print $1; }'` -eq 0 ]; then
+      git submodule init 
+    fi
+
+    git submodule update
+    cd vim.symlink && git checkout master && rake
+    cd ..
+  else
+    echo -e "$RED-$COLORREST you need git installed to use this function"
+  fi
 }
 
 function usage() {
@@ -136,21 +211,61 @@ How to use this:
 ./install.sh update
   Fetch updates from the repository and update symlinks if needed
 
-./install.sh getprivatedots
-  fetch dotfiles with sensitive informations from given source 
-  extracts, decrypts and links new dotfiles
+./install.sh link
+  Update symlinks if needed
+
+./install.sh privatedots install
+  Decrypt and unpack your private dotfiles and install them at this computer
+
+./install.sh privatedots link
+  Link newly added private dotfiles to your home directory
+
+./install.sh privatedots pack
+  Encrypt and pack your private dotfiles to transfer them to another box
+
+./install.sh privatedots delete
+  Delete your private dotfiles from this computer
+
+./install.sh vimupdate
+  Initialize or update the janus vim distribution
+
 EOF
 }
 
-case $@ in
+case $1 in
   install)
     install
     ;;
   uninstall)
     uninstall
     ;;
+  link)
+    link
+    ;;
   update)
     update
+    ;;
+  privatedots)
+    case $2 in
+      pack)
+        packprivatedots
+        ;;
+      install)
+        installprivatedots
+        ;;
+      link)
+        linkprivatedots
+        ;;
+      delete)
+        deleteprivatedots
+        ;;
+      *)
+        usage
+        ;;
+    esac
+    ;;
+  vimupdate)
+    vimupdate
     ;;
   *)
     usage 
