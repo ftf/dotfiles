@@ -3,23 +3,30 @@
 # The MIT License (MIT)
 # Copyright (c) 2012 Fabian Franke http://fabianfranke.de
 
+# layout variables
 GREEN="\033[0;32m"
 YELLOW="\033[0;33m"
 RED="\033[0;31m"
 COLORRESET="\033[0m"
 SPACER="   "
+
+# filename for the private dotfiles archive
 packfilename='privdots'
 
+# the big linker
 function install() {
   backupall=false
   deleteall=false
   skipall=false
   backupdir=${PWD}/backup
 
+  # in case we want to link from a sub directory if .dotfiles. e.g. privatedots
   if [ ! -z $1 ]; then
     prefix=$1
   fi
   
+  # we have to check if there are any linkable files at all or at least zsh 
+  # will link the first file/directory in our pwd
   if ls $prefix*.symlink >/dev/null 2>&1; then
     echo -e "$GREEN-$COLORRESET found some .symlink files, starting symlinking"
   else
@@ -29,18 +36,20 @@ function install() {
 
   for file in $prefix*.symlink; do
 
+    # target is the planned home directory link
+    # purefile name is needed in case we work with a prefix
     target="$HOME/.`basename ${file%.*}`"
     purefilename=`basename ${file%.*}`
 
-    if [ $file == "" ]; then
-      echo empty file!
-    fi
-    
+    # if the target is already linked to our .dotfiles directory skip it
     if [ "`readlink $target`" ==  "${PWD}/$file" ]; then
       continue
     fi
 
+    # we have an existing .dotfile
     if [ -e "$target" ]; then
+      # go down the fast lane if the user has already wished to do something
+      # to all files
       if $backupall ; then
         echo -e "$SPACER$YELLOW-$COLORRESET moving $target to backup"
         mv $target $backupdir/
@@ -54,6 +63,9 @@ function install() {
       elif $skipall ; then
         echo -e "$SPACER$YELLOW-$COLORRESET skipping ${file%.*}"
       else
+        # no general decision saved, let's ask
+        # lower case: decision for the current file
+        # upper case: decision for the current and all following file conflicts
         echo "$target exists. What to do? (b)ackup, (d)elete, (s)kip. Or for this and further existing files (B)ackup, (S)kip, (D)elete"
         read filedecision
         case $filedecision in
@@ -102,6 +114,7 @@ function install() {
        esac
       fi
       
+    # no existing .dotfile in ~, link found file
     else 
       echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
       ln -s ${PWD}/$file $target
@@ -111,10 +124,14 @@ function install() {
 
 function uninstall() {
 
+  # in case we want to link from a sub directory if .dotfiles. e.g. privatedots
   if [ ! -z $1 ]; then
     prefix=$1
   fi
 
+  # loop over *.symlink file ins user .dotfiles/$prefix directory if a link from
+  # the home directory points to the file, delete the symlink and when found restore 
+  # a backup
   for sym in $prefix*.symlink; do
     purefilename=`basename ${sym%.*}`
     target="$HOME/.$purefilename" 
@@ -129,17 +146,22 @@ function uninstall() {
   done
 }
 
+# fetch updates from git repo and by the way, git shut the fuck up
 function update() {
   echo -e "$GREEN-$COLORRESET Fetching updates from github"
   git pull >/dev/null
   link
 }
 
+# someday todo: merge with install() 
 function link() {
   echo -e "$GREEN-$COLORRESET Trying to link new files"
   install
 }
 
+# check if private dotfiles archive with name $packfilename is present
+# decrypt, and extract
+# call install() with sub directory prefix
 function installprivatedots() {
   echo -e "$GREEN-$COLORRESET Decrypting, unpacking and linking your private dotfiles"
   if [ -e "$packfilename.des3" ]; then
@@ -151,11 +173,13 @@ function installprivatedots() {
   install "privatedots/"
 }
 
+# someday todo: merge with link() and install()
 function linkprivatedots() {
   echo -e "$GREEN-$COLORRESET Updating links from your private dotfiles"
   install "privatedots/"
 }
 
+# pack ~/.dotfiles/privatedots with tar/bzip2 and encrypt with openssl
 function packprivatedots() {
   echo -e "$GREEN-$COLORRESET compressing and encrypting private dotfiles"
   echo -e "$SPACER$YELLOW-$COLORRESET prompting for a password in a little while"
@@ -181,7 +205,7 @@ function delprivatedots() {
   echo -e "$COLORRESET"
 
   uninstall "privatedots/"
-  echo "rm privatedots/*"
+  rm privatedots/*
 }
 
 function vimupdate() {
