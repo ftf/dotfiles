@@ -1,4 +1,4 @@
-#!/usr/bin/env  bash 
+#!/usr/bin/env bash 
 
 # The MIT License (MIT)
 # Copyright (c) 2012 Fabian Franke http://fabianfranke.de
@@ -20,13 +20,13 @@ function install() {
   skipall=false
   backupdir=${PWD}/backup
 
-  # in case we want to link from a sub directory if .dotfiles. e.g. privatedots
+  # in case we want to link from a sub directory in .dotfiles, e.g. privatedots
   if [ ! -z $1 ]; then
     prefix=$1
   fi
   
-  # we have to check if there are any linkable files at all or at least zsh 
-  # will link the first file/directory in our pwd
+  # we have to check if there are any linkable files at all or at strange
+  # and wild links will appear
   if ls $prefix*.symlink >/dev/null 2>&1; then
     echo -e "$GREEN-$COLORRESET found some .symlink files, starting symlinking"
   else
@@ -129,9 +129,9 @@ function uninstall() {
     prefix=$1
   fi
 
-  # loop over *.symlink file ins user .dotfiles/$prefix directory if a link from
-  # the home directory points to the file, delete the symlink and when found restore 
-  # a backup
+  # loop over *.symlink file in user .dotfiles/$prefix directory if a link from
+  # the home directory points to the file, delete the symlink. When a backup is 
+  #found restore it.
   for sym in $prefix*.symlink; do
     purefilename=`basename ${sym%.*}`
     target="$HOME/.$purefilename" 
@@ -146,7 +146,7 @@ function uninstall() {
   done
 }
 
-# fetch updates from git repo and by the way, git shut the fuck up
+# fetch updates from git repo and _hide_ the git output for a nicer user experience
 function update() {
   echo -e "$GREEN-$COLORRESET Fetching updates from github"
   git pull >/dev/null
@@ -159,7 +159,7 @@ function link() {
   install
 }
 
-# check if private dotfiles archive with name $packfilename is present
+# check if a private dotfiles archive with name $packfilename is present
 # decrypt, and extract
 # call install() with sub directory prefix
 function installprivatedots() {
