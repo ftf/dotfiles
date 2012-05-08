@@ -30,3 +30,6 @@
   path = vim.symlink
   url = git://github.com/carlhuda/janus.git
   ignore = untracked
+[submodule "janus.symlink/vim-markdown-preview"]
+	path = janus.symlink/vim-markdown-preview
+	url = https://github.com/rasky/vim-markdown-preview.git

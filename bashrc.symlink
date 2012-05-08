@@ -34,8 +34,13 @@ shopt -s cmdhist
 export PS1="\[\033[0;34m\]${PLOAD} - \[\033[01;32m\]\u@\h\[\033[00;34m\] \w \[\033[0;31m\]${BRANCH}\[\033[00;34m\]\$\[\033[00m\] "
 #export PS1
 
-
+# public repro bash config files
 for config_file in ~/.dotfiles/bash/*.bash; do 
+    source $config_file
+done
+
+# private repro bash config files
+for config_file in ~/.dotfiles/privatedots/bash/*.bash; do 
     source $config_file
 done
 
