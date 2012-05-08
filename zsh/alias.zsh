@@ -54,11 +54,6 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   ## Open current directory
   alias oo='open .'
 
-  # use macvim's vim
-  if [ -e "/Applications/MacVim.app" ]; then
-    alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-  fi
-
   alias bubu='brew update && brew upgrade'
   #alias cleanservices='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
 
