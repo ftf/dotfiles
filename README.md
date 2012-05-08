@@ -7,7 +7,7 @@ install.sh
 Inspired by [holmans dotfiles](https://github.com/holman/dotfiles)
 Rakefile.
 Since some moron systems don't ship with ruby I wanted to use a 
-pure shell based installation. Luckily we can install ruby later with
+pure shell script based installation. Luckily we can install ruby later with
 the help of [rvm](http://rvm.io).
 
 ### install.sh options
@@ -46,12 +46,12 @@ How to use this:
 
 Installation: 
 -------------
-- Open a fresh shell session
+- Open a fresh shell/Terminal session
 - git clone git://github.com/ftf/dotfiles .dotfiles
 - or if the system has no git installed, grab the zip file 
 - -> wget https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles && rm master
 - cd .dotfiles 
-- ./install.sh 
+- ./install.sh install
 
 Post installation
 -----------------
@@ -73,8 +73,8 @@ you fork this repo.
 
 Custom BASH files
 -----------------
-As above, store them at ```.dotfiles/privatedots/bash``` as ```somefile.
-bash```
+As above, store them at ```.dotfiles/privatedots/bash``` as
+```somefile.bash```
 
 Custom .dotfiles
 ----------------
@@ -82,9 +82,11 @@ Just put them in ```.dotfiles``` and name them ```something.symlink```
 to get them linked to your home directory, to do this run  
 ```./install.sh link```.
 
-How to link new added .dotfiles?
+Example: ```~/.dotfiles/.someth.ing.symlink``` will be linked to ```~/.someth.ing```
+
+How to link newly added .dotfiles?
 -------------------------------
-Just run ```./installer.sh link``` 
+Just run ```./install.sh link``` 
 
 Private Dotfiles 
 ---------------- 
@@ -94,16 +96,16 @@ Private Dotfiles
 Put them in .dotfiles/privatedots. When they should be linked to your
 home directory add as before ```.symlink``` to the filename.
 
-To link newly added private dotfiles use ```./installer.sh
+To link newly added private dotfiles use ```./install.sh
 privatedots link```
 
 The ```privatedots``` directory will be compressed with tar/bzip2 and
-afterwards be encrypted with openssl/des.
+afterwards encrypted with openssl/des.
 
 ### Transfer private dotfiles between machines
 - Run ```./install.sh privatedots pack``` and enter a password when
   prompted
-- Copy the privdots.des3 file to others box ```.dotfile``` directory by 
+- Copy the privdots.des3 file to anothers box ```.dotfile``` directory by 
   ftp/sftp/scp/rsync whatever
 - At the other machine run ```./install.sh privatedots install```
 
@@ -124,7 +126,8 @@ Submodules
 - [Vim plugin: vim-haml](https://github.com/tpope/vim-haml)
 - [Vim plugin: vim-ruby](https://github.com/vim-ruby/vim-ruby)
 - [Vim plugin: vim-smartinput](https://github.com/kana/vim-smartinput)
-- [Vim pluginL vim-markdown-preview(https://github.com/rasky/vim-markdown-preview/)]
+- [Vim plugin: vim-markdown-preview](https://github.com/rasky/vim-markdown-preview)
+
 Add VIM plugins
 ---------------
 In your .dotfiles directory execute:

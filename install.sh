@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/env  bash 
 
 # The MIT License (MIT)
 # Copyright (c) 2012 Fabian Franke http://fabianfranke.de
@@ -10,7 +10,7 @@ COLORRESET="\033[0m"
 SPACER="   "
 packfilename='privdots'
 
-function install() { 
+function install() {
   backupall=false
   deleteall=false
   skipall=false
@@ -29,7 +29,7 @@ function install() {
 
   for file in $prefix*.symlink; do
 
-    target="$HOME/.`basename ${file%.*}`" 
+    target="$HOME/.`basename ${file%.*}`"
     purefilename=`basename ${file%.*}`
 
     if [ $file == "" ]; then
@@ -96,7 +96,7 @@ function install() {
            continue
            ;;
          *)
-           echo wrong input, skipping
+           echo -e "$RED-$COLORRESET wrong input, skipping"
            continue
            ;;
        esac
@@ -158,7 +158,7 @@ function linkprivatedots() {
 
 function packprivatedots() {
   echo -e "$GREEN-$COLORRESET compressing and encrypting private dotfiles"
-  echo -e "$SPACER$YELLOW-$COLORRESET prompting for a password in a little while" 
+  echo -e "$SPACER$YELLOW-$COLORRESET prompting for a password in a little while"
   tar -jcf $packfilename.tbz2 privatedots && openssl des3 -a -in $packfilename.tbz2 -out $packfilename.des3 && rm $packfilename.tbz2
   echo
   if [ -e "$packfilename.des3" ]; then
@@ -175,7 +175,7 @@ function delprivatedots() {
 
   echo -en "$RED"
   for i in {1..5}; do
-    echo -n . 
+    echo -n .
     sleep 1
   done
   echo -e "$COLORRESET"
@@ -187,14 +187,14 @@ function delprivatedots() {
 function vimupdate() {
   if `type git >/dev/null 2>&1`; then
     if [ `git submodule | wc -l | awk '{ print $1; }'` -eq 0 ]; then
-      git submodule init 
+      git submodule init
     fi
 
     git submodule update
-    cd vim.symlink && git checkout master && rake
+    cd vim.symlink && git checkout master && git pull origin master && rake
     cd ..
   else
-    echo -e "$RED-$COLORREST you need git installed to use this function"
+    echo -e "$RED-$COLORRESET you need git installed to use this function"
   fi
 }
 
@@ -202,12 +202,12 @@ function usage() {
   cat << EOF
 How to use this:
 
-./install.sh install 
+./install.sh install
   Symlink dotfiles to the home directory
 
 ./install.sh uninstall
   Remove all dotfile symlinks from home directory and restore from backup if possible
-  
+
 ./install.sh update
   Fetch updates from the repository and update symlinks if needed
 
@@ -227,7 +227,8 @@ How to use this:
   Delete your private dotfiles from this computer
 
 ./install.sh vimupdate
-  Initialize or update the janus vim distribution
+Initialize or update the janus vim distribution  (also update or install 
+new vim plugins inside .janus.symlink)
 
 EOF
 }
@@ -268,6 +269,6 @@ case $1 in
     vimupdate
     ;;
   *)
-    usage 
+    usage
     ;;
 esac
