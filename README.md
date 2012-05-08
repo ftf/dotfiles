@@ -73,8 +73,7 @@ you fork this repo.
 
 Custom BASH files
 -----------------
-As above, store them at ```.dotfiles/privatedots/bash``` as
-```somefile.bash```
+As above, store them at ```.dotfiles/privatedots/bash``` as ```somefile.bash```
 
 Custom .dotfiles
 ----------------
