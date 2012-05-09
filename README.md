@@ -140,3 +140,9 @@ and then run ```./dotey vimupdate```
 <a href="http://flattr.com/thing/671197/ftf-on-GitHub" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png"
 alt="Flattr this" title="Flattr this" border="0" /></a>
+
+dotey is a stupid name
+----------------------
+Go fork the repo and come up with something better.
+
+The same applies if you don't like my config files ;)
