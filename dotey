@@ -27,8 +27,7 @@ function install() {
   
   # we have to check if there are any linkable files at all or at strange
   # and wild links will appear
-  #if [ -f "$prefix*.symlink" ]; then
-  if ls $prefix*.symlink >/dev/null 2>&1; then
+  if  [ "`ls $prefix*.symlink | wc -l`" != 0 ]; then
     echo -e "$GREEN-$COLORRESET found some .symlink files, starting symlinking"
   else
     echo -e "$RED-$COLORRESET found no .symlink files, nothing to do"
