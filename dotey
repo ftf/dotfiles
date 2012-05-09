@@ -187,7 +187,7 @@ function packprivatedots() {
   echo
   if [ -e "$packfilename.des3" ]; then
     echo -e "$GREEN-$COLORRESET your private dotfiles are ready at $PWD/$packfilename.des3"
-    echo -e "$SPACER Transfer them over to your other installations and run ./installer.sh installprivatedots"
+    echo -e "$SPACER Transfer them over to your other installations and run ./dotey installprivatedots"
   else
     echo -e "$RED-$COLORRESET something went terribly wrong"
   fi
@@ -226,31 +226,31 @@ function usage() {
   cat << EOF
 How to use this:
 
-./install.sh install
+./dotey install
   Symlink dotfiles to the home directory
 
-./install.sh uninstall
+./dotey uninstall
   Remove all dotfile symlinks from home directory and restore from backup if possible
 
-./install.sh update
+./dotey update
   Fetch updates from the repository and update symlinks if needed
 
-./install.sh link
+./dotey link
   Update symlinks if needed
 
-./install.sh privatedots install
+./dotey privatedots install
   Decrypt and unpack your private dotfiles and install them at this computer
 
-./install.sh privatedots link
+./dotey privatedots link
   Link newly added private dotfiles to your home directory
 
-./install.sh privatedots pack
+./dotey privatedots pack
   Encrypt and pack your private dotfiles to transfer them to another box
 
-./install.sh privatedots delete
+./dotey privatedots delete
   Delete your private dotfiles from this computer
 
-./install.sh vimupdate
+./dotey vimupdate
 Initialize or update the janus vim distribution  (also update or install 
 new vim plugins inside .janus.symlink)
 

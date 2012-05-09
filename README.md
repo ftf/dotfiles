@@ -1,7 +1,7 @@
 Just a bunch of .dotfiles
 =========================
 
-install.sh
+dotey - a little dotfiles helper
 ----------
 
 Inspired by [holmans dotfiles](https://github.com/holman/dotfiles)
@@ -10,36 +10,36 @@ Since some moron systems don't ship with ruby I wanted to use a
 pure shell script based installation. Luckily we can install ruby later with
 the help of [rvm](http://rvm.io).
 
-### install.sh options
+### dotey options
 
 ```
 How to use this:
 
-./install.sh install 
+./dotey install 
   Symlink dotfiles to the home directory
 
-./install.sh uninstall
+./dotey uninstall
   Remove all dotfile symlinks from home directory and restore from backup if possible
   
-./install.sh update
+./dotey update
   Fetch updates from the repository and update symlinks if needed
 
-./install.sh link
+./dotey link
   Update symlinks if needed
 
-./install.sh privatedots install
+./dotey privatedots install
   Decrypt and unpack your private dotfiles and install them at this computer
 
-./install.sh privatedots link
+./dotey privatedots link
   Link newly added private dotfiles to your home directory
 
-./install.sh privatedots pack
+./dotey privatedots pack
   Encrypt and pack your private dotfiles to transfer them to another box
 
-./install.sh privatedots delete
+./dotey privatedots delete
   Delete your private dotfiles from this computer
 
-./install.sh vimupdate
+./dotey vimupdate
   Initialize or update the janus vim distribution (also update or
   install new vim plugins inside .janus.symlink)
 ```
@@ -51,11 +51,11 @@ Installation:
 - or if the system has no git installed, grab the zip file 
 - -> wget https://github.com/ftf/dotfiles/zipball/master && unzip master -d .dotfiles && rm master
 - cd .dotfiles 
-- ./install.sh install
+- ./dotey install
 
 Post installation
 -----------------
-- to use the janus vim distribution run: ```./install.sh vimupdate```
+- to use the janus vim distribution run: ```./dotey vimupdate```
 - get the [lolcat](https://github.com/busyloop/lolcat) gem for color awesomeness
 
 Will the script kill my current configuration files?
@@ -79,13 +79,13 @@ Custom .dotfiles
 ----------------
 Just put them in ```.dotfiles``` and name them ```something.symlink``` 
 to get them linked to your home directory, to do this run  
-```./install.sh link```.
+```./dotey link```.
 
 Example: ```~/.dotfiles/.someth.ing.symlink``` will be linked to ```~/.someth.ing```
 
 How to link newly added .dotfiles?
 -------------------------------
-Just run ```./install.sh link``` 
+Just run ```./dotey link``` 
 
 Private Dotfiles 
 ---------------- 
@@ -95,21 +95,21 @@ Private Dotfiles
 Put them in .dotfiles/privatedots. When they should be linked to your
 home directory add as before ```.symlink``` to the filename.
 
-To link newly added private dotfiles use ```./install.sh
+To link newly added private dotfiles use ```./dotey
 privatedots link```
 
 The ```privatedots``` directory will be compressed with tar/bzip2 and
 afterwards encrypted with openssl/des.
 
 ### Transfer private dotfiles between machines
-- Run ```./install.sh privatedots pack``` and enter a password when
+- Run ```./dotey privatedots pack``` and enter a password when
   prompted
 - Copy the privdots.des3 file to anothers box ```.dotfile``` directory by 
   ftp/sftp/scp/rsync whatever
-- At the other machine run ```./install.sh privatedots install```
+- At the other machine run ```./dotey privatedots install```
 
 ### I don't want my private dotfiles on a machine anymore
-Just run ```./install.sh privatedots delete``` and they are gone
+Just run ```./dotey privatedots delete``` and they are gone
 
 ### Why private dotfiles after all, should I not share all my dotfiles?
 While this thought should be appreciated, you probably don't want to
@@ -135,4 +135,8 @@ In your .dotfiles directory execute:
 git submodule add -f https://github..... janus.symlink/pluginname
 ```
 
-and then run ```./install.sh vimupdate```
+and then run ```./dotey vimupdate```
+
+<a href="http://flattr.com/thing/671197/ftf-on-GitHub" target="_blank">
+<img src="http://api.flattr.com/button/flattr-badge-large.png"
+alt="Flattr this" title="Flattr this" border="0" /></a>
