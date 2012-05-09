@@ -52,12 +52,12 @@ zmodload -aF zsh/stat b:zstat
 bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
 # public repro zsh config files
-if  (ls ~/.dotfiles/zsh/*.zsh >/dev/null 2>&1); then
+if [ -f "~/.dotfiles/zsh/*.zsh" ]; then
   for config_file (~/.dotfiles/zsh/*.zsh) source $config_file
 fi
   
 # private repro zsh config files
-if  (ls ~/.dotfiles/privatedots/zsh/*.zsh >/dev/null 2>&1); then
+if [ -f "~/.dotfiles/privatedots/zsh/*.zsh" ]; then
   for config_file (~/.dotfiles/privatedots/zsh/*.zsh) source $config_file
 fi
 
