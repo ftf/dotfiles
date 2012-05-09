@@ -52,10 +52,14 @@ zmodload -aF zsh/stat b:zstat
 bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
 # public repro zsh config files
-for config_file (~/.dotfiles/zsh/*.zsh) source $config_file
-
+if  (ls ~/.dotfiles/zsh/*.zsh >/dev/null 2>&1); then
+  for config_file (~/.dotfiles/zsh/*.zsh) source $config_file
+fi
+  
 # private repro zsh config files
-for config_file (~/.dotfiles/privatedots/zsh/*.zsh) source $config_file
+if  (ls ~/.dotfiles/privatedots/zsh/*.zsh >/dev/null 2>&1); then
+  for config_file (~/.dotfiles/privatedots/zsh/*.zsh) source $config_file
+fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
