@@ -124,8 +124,8 @@ autocmd BufNewFile,BufRead *.scss   set filetype=scss.css
 
 " move omnicomplete from c-x c-o to tab
 set completeopt=menuone,menu,longest
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-"let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+let g:SuperTabDefaultCompletionType = "context"
 
 " Stupid shift key fixes
 cmap W w
@@ -135,3 +135,7 @@ nnoremap Y y$
 
 "clearing highlighted search
 nmap <silent> <leader>/ :nohlsearch<CR>
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
