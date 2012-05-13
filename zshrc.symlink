@@ -51,15 +51,19 @@ zmodload -aF zsh/stat b:zstat
 
 bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
+unsetopt nomatch  # unset if for the checks, set it afterwards again. 
+                  # if you don't like the no matches found error messages,
+                  # comment the setopt nomatch out below
 # public repro zsh config files
-if  [ "`ls $HOME/.dotfiles/zsh/*.zsh | wc -l`" != 0 ]; then
+if  [ "`ls $HOME/.dotfiles/zsh/*.zsh 2> /dev/null | wc -l`" != 0 ]; then
   for config_file (~/.dotfiles/zsh/*.zsh) source $config_file
 fi
   
 # private repro zsh config files
-if  [ "`ls $HOME/.dotfiles/privatedots/zsh/*.zsh | wc -l`" != 0 ]; then
+if  [ "`ls $HOME/.dotfiles/privatedots/zsh/*.zsh 2> /dev/null | wc -l`" != 0 ]; then
   for config_file (~/.dotfiles/privatedots/zsh/*.zsh) source $config_file
 fi
+setopt nomatch
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

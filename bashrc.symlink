@@ -35,14 +35,14 @@ export PS1="\[\033[0;34m\]${PLOAD} - \[\033[01;32m\]\u@\h\[\033[00;34m\] \w \[\0
 #export PS1
 
 # public repro bash config files
-if [ "`ls $HOME/.dotfiles/bash/*.bash | wc -l`" != 0 ]; then
+if [ "`ls $HOME/.dotfiles/bash/*.bash | wc -l 2> /dev/null`" != 0 ]; then
   for config_file in ~/.dotfiles/bash/*.bash; do 
     source $config_file
   done
 fi
 
 # private repro bash config files
-if [ "`ls $HOME/.dotfiles/privatedots/bash/*.bash | wc -l`" != 0 ]; then
+if [ "`ls $HOME/.dotfiles/privatedots/bash/*.bash 2> /dev/null | wc -l`" != 0 ]; then
   for config_file in ~/.dotfiles/privatedots/bash/*.bash; do 
     source $config_file
   done
