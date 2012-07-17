@@ -16,6 +16,8 @@ export LC_CTYPE=$LANG
 setopt auto_cd
 setopt multios
 setopt cdablevarS
+# treat # as comment, not as a command
+setopt INTERACTIVE_COMMENTS
 
 if [[ x$WINDOW != x ]]
 then
