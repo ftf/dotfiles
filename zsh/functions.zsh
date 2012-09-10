@@ -14,9 +14,13 @@ function decrypt() {
     openssl des3 -d -a -in $1 -out ${1%.des3}
 }
 
-function mkcd() {
+function md() {
   mkdir $1
   cd $1
+}
+
+function f() {
+  find . -name "$1"
 }
 
 
