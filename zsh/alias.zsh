@@ -76,6 +76,10 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   alias proxy-status='networksetup -getwebproxy Wi-Fi'
 fi
 
+# cat with syntax hilightning
+if `type pygmentize >/dev/null 2>&1` ; then
+  alias c='pygmentize -O style=monokai -f console256 -g'
+fi
 
 alias l='ls -hasl'
 alias ..='cd ..'
