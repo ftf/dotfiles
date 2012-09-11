@@ -10,6 +10,11 @@ alias ...='cd ../..'
 alias sgu='rvm all do gem update'
 alias bubu='brew update && brew upgrade'
 
+# cat with syntax hilightning
+if `type pygmentize >/dev/null 2>&1` ; then
+    alias c='pygmentize -O style=monokai -f console256 -g'
+fi
+
 # OS X only aliases
 if [[ "$OSTYPE" =~ darwin ]]; then
   alias cleanservices='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
