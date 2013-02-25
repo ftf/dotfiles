@@ -33,3 +33,6 @@
 [submodule "janus.symlink/vim-markdown-preview"]
 	path = janus.symlink/vim-markdown-preview
 	url = https://github.com/rasky/vim-markdown-preview.git
+[submodule "janus.symlink/vim-railscasts-colorscheme"]
+	path = janus.symlink/vim-railscasts-colorscheme
+	url = git://github.com/jpo/vim-railscasts-theme.git

@@ -32,7 +32,6 @@ alias getmtu='ping -D -g 1400 -G 1500 -h1 heise.de'
 
 #alias start_tomcat='$CATALINA_HOME/bin/startup.sh'
 #alias stop_tomcat='$CATALINA_HOME/bin/shutdown.sh'
-alias top='top -u -s1 20'
 
 ## Start a local SMTP server and dump emails sent to it to the console
 alias smtpconsole='python -m smtpd -n -c DebuggingServer localhost:1025'
