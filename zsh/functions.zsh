@@ -42,13 +42,13 @@ if `type emerge >/dev/null 2>&1`; then
         sudo dispatch-conf
         ;;
       pretend)
-        sudo emerge --verbose --quite --pretend --update --newuse --deep world
+        sudo emerge --verbose --quiet --pretend --update --newuse --deep world
         ;;
       go)
-        sudo emerge --verbose --quite --update --newuse --deep world
+        sudo emerge --verbose --quiet --update --newuse --deep world
         ;;
       *)
-        sudo emerge --verbose --quite --ask --update --newuse --deep world
+        sudo emerge --verbose --quiet --ask --update --newuse --deep world
         ;;
     esac
   }
