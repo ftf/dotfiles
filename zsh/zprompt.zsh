@@ -64,6 +64,8 @@ PS2='$base_prompt%{$fg_bold[cyan]%}$path_prompt%{$reset_color%}%{$fg_bold[blue]%
 PS3='$base_prompt%{$fg_bold[cyan]%}$path_prompt%{$reset_color%}%{$fg[blue]%}$(vcs_status) ?# $post_prompt'
 if [ -e "$HOME/.rvm/bin/rvm-prompt" ]; then
   RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch) %{$fg_bold[blue]%}$(~/.rvm/bin/rvm-prompt)%{$reset_color%}'
+elif which rbenv > /dev/null; then
+  RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch) %{$fg_bold[blue]%}$(rbenv version-name)%{$reset_color%}'
 else
   RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch)'
 fi

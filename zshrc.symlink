@@ -65,5 +65,6 @@ if  [ "`ls $HOME/.dotfiles/privatedots/zsh/*.zsh 2> /dev/null | wc -l`" != 0 ]; 
 fi
 setopt nomatch
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && export PATH=$PATH:$HOME/.rvm/bin && source "$HOME/.rvm/scripts/rvm"
+
+if which rbenv > /dev/null; then export PATH="$HOME/.rbenv/bin:$PATH" && eval "$(rbenv init -)"; fi

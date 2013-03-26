@@ -116,7 +116,6 @@ set hidden
 set listchars=tab:▸\ ,eol:¬
 nmap <leader>L :set list!<CR>
 set list!
-"nmap <leader>w :set wrap!<CR>
 
 " ruby things
 autocmd BufNewFile,BufRead *.erb    set filetype=html.eruby
@@ -135,6 +134,10 @@ nnoremap Y y$
 
 "clearing highlighted search
 nmap <silent> <leader>/ :nohlsearch<CR>
+nmap \q :nohlsearch<CR>
+nmap \l :setlocal number!<CR>
+nmap \p :set paste!<CR>
+nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR> 
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

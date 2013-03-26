@@ -48,6 +48,8 @@ if [ "`ls $HOME/.dotfiles/privatedots/bash/*.bash 2> /dev/null | wc -l`" != 0 ];
   done
 fi
 
+# rvm
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && PATH=$PATH:$HOME/.rvm/bin && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# rbenv
+if which rbenv > /dev/null; then export PATH="$HOME/.rbenv/bin:$PATH" && eval "$(rbenv init -)"; fi
