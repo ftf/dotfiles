@@ -32,6 +32,7 @@ function lepasta {
 }
 
 # Gentoo only functions
+if `type emerge >/dev/null 2>&1`; then
   kvmdo() {
     cmd=`echo $@ | cut -d' ' -f2-`
     case $1 in
@@ -55,25 +56,24 @@ function lepasta {
   }
 
   up() {
-if `type emerge >/dev/null 2>&1`; then
-    case $@ in
-      fixdeps)
-        sudo revdep-rebuild -pqi
-        ;;
-      config)
-        sudo dispatch-conf
-        ;;
-      pretend)
-        sudo emerge --verbose --quiet --pretend --update --newuse --deep world
-        ;;
-      go)
-        sudo emerge --verbose --quiet --update --newuse --deep world
-        ;;
-      *)
-        sudo emerge --verbose --quiet --ask --update --newuse --deep world
-        ;;
-    esac
-  }
+      case $@ in
+        fixdeps)
+          sudo revdep-rebuild -pqi
+          ;;
+        config)
+          sudo dispatch-conf
+          ;;
+        pretend)
+          sudo emerge --verbose --quiet --pretend --update --newuse --deep world
+          ;;
+        go)
+          sudo emerge --verbose --quiet --update --newuse --deep world
+          ;;
+        *)
+          sudo emerge --verbose --quiet --ask --update --newuse --deep world
+          ;;
+      esac
+    }
 fi
 
 # OS X only functions
