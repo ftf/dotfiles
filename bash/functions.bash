@@ -21,6 +21,18 @@ if `type emerge >/dev/null 2>&1`; then
       fixdeps)
         sudo revdep-rebuild -pqi
         ;;
+      config)
+        sudo dispatch-conf
+        ;;
+      pretend)
+        sudo emerge --verbose --quite --pretend --update --newuse --deep world
+        ;;
+      go)
+        sudo emerge --verbose --quite --update --newuse --deep world
+        ;;
+      *)
+        sudo emerge --verbose --quite --ask --update --newuse --deep world
+        ;;
       *)
         sudo emerge -avq --update --newuse --deep world
         ;;
