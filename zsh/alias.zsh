@@ -84,3 +84,4 @@ alias l='ls -hasl'
 alias ..='cd ..'
 alias ...='cd ../..'
 
+alias rake="noglob rake"
