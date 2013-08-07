@@ -16,7 +16,7 @@ fi
 
 export PATH=/usr/local/sbin:/usr/local/bin:~/.dotfiles/bin:$PATH
 #export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages:/System/Library/Frameworks/Python.framework/Versions/Current
+export PYTHONPATH=/usr/local/lib/python3.3/site-packages:/usr/local/lib/python2.7/site-packages:/System/Library/Frameworks/Python.framework/Versions/Current
 export PYTHONSTARTUP=~/.pythonrc
 
 # for gpg curses gui
