@@ -74,6 +74,10 @@ if `type emerge >/dev/null 2>&1`; then
           ;;
       esac
     }
+
+  mg() {
+      grep "$@" /var/log/messages
+  }
 fi
 
 # OS X only functions
