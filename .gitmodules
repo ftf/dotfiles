@@ -36,3 +36,12 @@
 [submodule "janus.symlink/vim-railscasts-colorscheme"]
 	path = janus.symlink/vim-railscasts-colorscheme
 	url = git://github.com/jpo/vim-railscasts-theme.git
+[submodule "janus.symlink/vim-airline"]
+	path = janus.symlink/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule "janus.symlink/vim-gitgutter"]
+	path = janus.symlink/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "janus.symlink/vim-emmet"]
+	path = janus.symlink/vim-emmet
+	url = https://github.com/mattn/emmet-vim.git
