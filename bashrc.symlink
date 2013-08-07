@@ -1,15 +1,6 @@
-
-# git branch for prompt
-#if [ "\$(type -t __git_ps1)" ]; then # if we're in a Git repo, show current branch
-#   BRANCH="\$(__git_ps1 '[ %s ] ')"
-#fi
-export PLOAD=`uptime|awk '{min=NF-2;print $min}'`
-
 if [ -f /opt/local/etc/bash_completion ]; then
 	. /opt/local/etc/bash_completion
 fi
-
-
 
 export GREP_OPTIONS='--color=always'
 export GREP_COLOR='1;31'
@@ -28,11 +19,13 @@ export HISTSIZE=10000
 shopt -s histappend
 shopt -s cdspell
 shopt -s cmdhist
-# gentoo std prompt
-#PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
-# gentoo prompt + git branch + load
-export PS1="\[\033[0;34m\]${PLOAD} - \[\033[01;32m\]\u@\h\[\033[00;34m\] \w \[\033[0;31m\]${BRANCH}\[\033[00;34m\]\$\[\033[00m\] "
-#export PS1
+
+if [[ ${EUID} == 0 ]] ; then
+  PS1="\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] "
+else
+  PS1="\[\033[01;32m\]\U@\h\[\033[01;34m\] \W \$\[\033[00m\] "
+fi
+export PS1
 
 # public repro bash config files
 if [ "`ls $HOME/.dotfiles/bash/*.bash | wc -l 2> /dev/null`" != 0 ]; then
