@@ -74,7 +74,8 @@ zstyle ':completion:*:correct:*'       original true
 zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
 
 # format on completion
-zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
+#zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 
 # automatically complete 'cd -<tab>' and 'cd -<ctrl-d>' with menu
 # zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
