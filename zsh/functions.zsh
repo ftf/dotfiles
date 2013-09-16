@@ -25,8 +25,8 @@ function f() {
 
 
 function lepasta {
-  ~/.dotfiles/bin/pastee.py $1 | pbcopy;
   if [[ "$OSTYPE" =~ darwin ]]; then
+    ~/.dotfiles/bin/pastee.py $1 | pbcopy;
     /usr/local/bin/growlnotify -n lepasta -t lepasta -m `pbpaste`
   fi
 }
