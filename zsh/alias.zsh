@@ -73,6 +73,9 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   alias proxy-on='networksetup -setwebproxystate Wi-Fi on'
   alias proxy-off='networksetup -setwebproxystate Wi-Fi off'
   alias proxy-status='networksetup -getwebproxy Wi-Fi'
+
+  alias py='/usr/local/bin/python3'
+  alias pip='/usr/local/bin/pip3'
 fi
 
 # cat with syntax hilightning
