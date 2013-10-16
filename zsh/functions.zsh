@@ -23,13 +23,13 @@ function f() {
   find . -name "$1"
 }
 
-
-function lepasta {
-  if [[ "$OSTYPE" =~ darwin ]]; then
-    ~/.dotfiles/bin/pastee.py $1 | pbcopy;
-    /usr/local/bin/growlnotify -n lepasta -t lepasta -m `pbpaste`
-  fi
+function dl() {
+  for i in $*; do
+    echo "Downloading:" $1
+    curl -OC -i $1
+  done
 }
+
 
 # Gentoo only functions
 if `type emerge >/dev/null 2>&1`; then
@@ -95,12 +95,13 @@ if [[ "$OSTYPE" =~ darwin ]]; then
     return 
   }
 
-  function dl() {
-    for i in $*; do
-      echo "Downloading:" $1
-      curl -OC -i $1
-    done
+  function lepasta {
+    if [[ "$OSTYPE" =~ darwin ]]; then
+      ~/.dotfiles/bin/pastee.py $1 | pbcopy;
+      /usr/local/bin/growlnotify -n lepasta -t lepasta -m `pbpaste`
+    fi
   }
+
 fi
 
 test $SSH_AUTH_SOCK && ln -sf "$SSH_AUTH_SOCK" "/tmp/ssh-agent-$USER-screen"
