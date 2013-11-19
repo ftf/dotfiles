@@ -24,6 +24,9 @@ export GPG_TTY=`tty`
 
 # osx only vars
 if [[ "$OSTYPE" =~ darwin ]]; then
-  # set default virsh connect uri for tesserakt
+    # set default virsh connect uri for tesserakt
     export VIRSH_DEFAULT_CONNECT_URI='qemu+ssh://tesserakt/system?socket=/var/run/libvirt/libvirt-sock'
+    if [ -a  /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt ]; then
+      export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+    fi
 fi
