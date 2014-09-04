@@ -7,6 +7,8 @@
 # ------------------------------------------------------------------------------
 
 if [[ "$OSTYPE" =~ darwin ]]; then
+export RBENV_ROOT=/usr/local/var/rbenv
+
 function tab() {
   local command="cd \\\"$PWD\\\""
   (( $# > 0 )) && command="${command}; $*"
