@@ -26,6 +26,11 @@ if [ ! -e $menulst ]; then
   exit 1;
 fi
 
+if [[ `file $newkernel | grep 'Linux kernel x86 boot executable bzImagxe' | wc -l` -ne 1 ]]; then
+   echo "kernel $newkernel doesn't look like a kernel..";
+   exit 1;
+fi
+
 if [ ! -e $newkernelpath ]; then
   echo "Cannot find a new kernel at $newkernelpath"
   exit 1;
