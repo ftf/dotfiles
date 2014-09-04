@@ -37,12 +37,11 @@ cp $newkernelpath /boot/kernel-$newkernel
 existingkernels=(`/bin/grep --perl-regexp --only-matching '(?<=kernel-)[\d\.]*' $menulst`)
 #echo "existing kernel: ${existingkernels[0]} ${existingkernels[1]}"
 if [[ $newkernel == ${existingkernels[1]} ]]; then
-  echo New kernel version already configured, not going to touch $menulst
+  echo "New kernel version already configured, not going to touch $menulst"
 else
-  echo Old kernels:
+  echo "Old kernels:"
   /bin/grep --perl-regexp '(title|kernel)' $menulst
   sed -i.back --expression 's/'${existingkernels[1]}'/'$newkernel'/g' --expression 's/'${existingkernels[0]}'/'${existingkernels[1]}'/g' $menulst
-  echo New kernels:
+  echo "New kernels:" 
   /bin/grep --perl-regexp '(title|kernel)' $menulst
 fi
-
