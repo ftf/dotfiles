@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# grub menu layout
+## options
+## title Gentoo Kernel oldversion options
+## root ..
+## kernel ../kernel-oldkernel
+## title Gentoo Kernel currentversion options
+## root ..
+## kernel ../kernel-currentversion
+menulst='/boot/grub/menu.lst'
+
+if [ "$(whoami)" != 'root' ]; then
+  echo "You have no permission to run $0 as non-root user."
+  exit 1;
+fi
+
+newkernel=`file arch/x86/boot/bzImage | /bin/grep --perl-regexp --only-matching '(?<=version )[\d\.]*'`
+#echo "newkernel: $newkernel"
+cp arch/x86/boot/bzImage /boot/kernel-$newkernel
+existingkernels=(`/bin/grep --perl-regexp --only-matching '(?<=kernel-)[\d\.]*' $menulst`)
+#echo "existing kernel: ${existingkernels[0]} ${existingkernels[1]}"
+if [[ $newkernel == ${existingkernels[1]} ]]; then
+  echo New kernel version already configured, not going to touch $menulst
+else
+  echo Old kernels:
+  /bin/grep --perl-regexp '(title|kernel)' $menulst
+  sed -i.back --expression 's/'${existingkernels[1]}'/'$newkernel'/g' --expression 's/'${existingkernels[0]}'/'${existingkernels[1]}'/g' $menulst
+  echo New kernels:
+  /bin/grep --perl-regexp '(title|kernel)' $menulst
+fi
+
