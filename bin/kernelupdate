@@ -9,11 +9,16 @@
 ## root ..
 ## kernel ../kernel-currentversion
 menulst='/boot/grub/menu.lst'
-newkernelpath='arch/x86/boot/bzImage'
+newkernelpath='./arch/x86/boot/bzImage'
 
 if [ "$(whoami)" != 'root' ]; then
   echo "You have no permission to run $0 as non-root user."
   exit 1;
+fi
+
+if [ $1 ]; then
+  newkernelpath=$1;
+  echo "New kernel path set to $newkernelpath via argument"
 fi
 
 if [ ! -e $menulst ]; then
@@ -22,13 +27,13 @@ if [ ! -e $menulst ]; then
 fi
 
 if [ ! -e $newkernelpath ]; then
-  echo "Cannot find a new kernel at ~/$newkernelpath"
+  echo "Cannot find a new kernel at $newkernelpath"
   exit 1;
 fi
 
 newkernel=`file $newkernelpath | /bin/grep --perl-regexp --only-matching '(?<=version )[\d\.]*'`
 #echo "newkernel: $newkernel"
-cp arch/x86/boot/bzImage /boot/kernel-$newkernel
+cp $newkernelpath /boot/kernel-$newkernel
 existingkernels=(`/bin/grep --perl-regexp --only-matching '(?<=kernel-)[\d\.]*' $menulst`)
 #echo "existing kernel: ${existingkernels[0]} ${existingkernels[1]}"
 if [[ $newkernel == ${existingkernels[1]} ]]; then
