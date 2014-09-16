@@ -1,5 +1,6 @@
 set transparency=5
-color kellys
+#color kellys
+color corporation_modified
 set guioptions=aAce
 set guifont=Monaco:h13
 set clipboard=unnamed
