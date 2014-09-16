@@ -16,3 +16,5 @@ janus.symlink/*
 vim.symlink/*
 vimtmp/*
 
+.bundle
+Gemfile.lock
