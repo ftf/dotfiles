@@ -50,13 +50,10 @@ if `type emerge >/dev/null 2>&1`; then
         sudo emerge --verbose --quiet --pretend --update --newuse --deep world
         ;;
       go)
-        sudo emerge --quiet --update --newuse --deep world
+        sudo emerge --quiet --update --newuse --deep --keep-going world
         ;;
       *)
-        sudo emerge --verbose --quiet --ask --update --newuse --deep world
-        ;;
-      *)
-        sudo emerge -avq --update --newuse --deep world
+        sudo emerge --verbose --quiet --ask --update --newuse --deep --keep-going world
         ;;
     esac
   }
