@@ -26,8 +26,8 @@ if [ ! -e $menulst ]; then
   exit 1;
 fi
 
-if [[ `file $newkernel | grep 'Linux kernel x86 boot executable bzImage' | wc -l` -ne 1 ]]; then
-   echo "kernel $newkernel doesn't look like a kernel..";
+if [[ `file $newkernelpath | grep 'Linux kernel x86 boot executable bzImage' | wc -l` -ne 1 ]]; then
+   echo "kernel $newkernelpath doesn't look like a kernel..";
    exit 1;
 fi
 
