@@ -12,8 +12,8 @@ backup/*
 privatedots/*
 
 #submodules
-janus.symlink/*
-vim.symlink/*
+
+# vim temp files
 vimtmp/*
 
 .bundle
