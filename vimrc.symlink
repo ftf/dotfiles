@@ -1,3 +1,6 @@
+runtime .vim/bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+
 "Forget compatibility with Vi. Who cares.
 set nocompatible
 
@@ -28,7 +31,7 @@ color kellys
 "Enable spell checking
 set spell
 set spelllang=en_us,de_20
-set spellfile=~/.janus/spellfile.add
+set spellfile=~/.vim/spellfile.add
 noremap <silent> ,s :set spell!<CR>
 highlight clear SpellBad
 highlight clear SpellRare
