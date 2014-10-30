@@ -1,0 +1,144 @@
+"Forget compatibility with Vi. Who cares.
+set nocompatible
+
+" Set encoding
+set encoding=utf-8
+
+" searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+"Enable file types
+filetype on
+filetype plugin on
+filetype indent on
+syntax on
+
+set ruler
+set number
+
+color kellys 
+
+" if has('gui_running')
+"   color inkpot 
+" endif
+
+"Enable spell checking
+set spell
+set spelllang=en_us,de_20
+set spellfile=~/.janus/spellfile.add
+noremap <silent> ,s :set spell!<CR>
+highlight clear SpellBad
+highlight clear SpellRare
+highlight clear SpellLocal
+highlight clear SpellCap
+highlight SpellBad   gui=undercurl cterm=underline ctermfg=red    guisp=red
+highlight SpellRare  gui=undercurl cterm=underline ctermfg=red    guisp=orange
+highlight SpellLocal gui=undercurl cterm=underline ctermfg=blue   guisp=blue
+highlight SpellCap   gui=undercurl cterm=underline ctermfg=yellow guisp=Yellow
+
+set showcmd
+set laststatus=2
+
+" psst
+set novisualbell
+set noerrorbells
+
+" auto save on file change
+set autowrite
+
+" indent settings
+set smartindent
+set autoindent
+
+" tabkram
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
+" macvim style
+"set guioptions=aAce
+"set guifont=Monaco:h12
+
+" latexbox preview in Skim with update on save
+let g:LatexBox_latexmk_options = '-pvc'
+let g:LatexBox_viewer = '/Applications/Skim.app/Contents/MacOS/Skim'
+let g:LatexBox_output_type = "pdf"
+let g:LatexBox_autojump = 1 
+
+
+" open file in chrome
+nmap <leader>cr :silent ! open -a 'Google Chrome.app' %:p<cr>
+nmap <leader>sf :silent ! open -a 'Safai.app' %:p<cr>
+
+" Windows navigation
+noremap <silent> ,h :wincmd h<CR>
+noremap <silent> ,j :wincmd j<CR>
+noremap <silent> ,k :wincmd k<CR>
+noremap <silent> ,l :wincmd l<CR>
+
+" toogle paste
+set pastetoggle=<leader>p
+" More useful command-line completion
+set wildmenu
+set wildmode=list:longest
+
+"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE  
+"set completeopt=longest,menuone
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+"  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+" Bubble single lines
+nmap <C-Up> ddkP
+nmap <C-Down> ddp
+" Bubble multiple lines
+vmap <C-Up> xkP`[V`]
+vmap <C-Down> xp`[V`]
+
+" Backups
+set backupdir=~/.dotfiles/vimtmp/
+set directory=~/.dotfiles/vimtmp/
+set backup                          " enable backup
+
+" show matching brackets
+set showmatch
+set matchtime=7
+
+" easier hidden buffer usage
+set hidden
+
+" textmate like hidden symbols
+set listchars=tab:▸\ ,eol:¬
+nmap <leader>L :set list!<CR>
+set list!
+
+" ruby things
+autocmd BufNewFile,BufRead *.erb    set filetype=html.eruby
+autocmd BufNewFile,BufRead *.scss   set filetype=scss.css
+
+" move omnicomplete from c-x c-o to tab
+set completeopt=menuone,menu,longest
+"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+let g:SuperTabDefaultCompletionType = "context"
+
+" Stupid shift key fixes
+cmap W w
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
+
+"clearing highlighted search
+nmap <silent> <leader>/ :nohlsearch<CR>
+nmap \q :nohlsearch<CR>
+nmap \l :setlocal number!<CR>
+nmap \p :set paste!<CR>
+nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR> 
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
