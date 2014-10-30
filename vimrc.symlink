@@ -71,8 +71,7 @@ let g:LatexBox_viewer = '/Applications/Skim.app/Contents/MacOS/Skim'
 let g:LatexBox_output_type = "pdf"
 let g:LatexBox_autojump = 1 
 
-
-" open file in chrome
+" open file in browser
 nmap <leader>cr :silent ! open -a 'Google Chrome.app' %:p<cr>
 nmap <leader>sf :silent ! open -a 'Safari.app' %:p<cr>
 
@@ -87,14 +86,6 @@ set pastetoggle=<leader>p
 " More useful command-line completion
 set wildmenu
 set wildmode=list:longest
-
-"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE  
-"set completeopt=longest,menuone
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-"  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-"  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Bubble single lines
 nmap <C-Up> ddkP
@@ -125,11 +116,6 @@ set list!
 autocmd BufNewFile,BufRead *.erb    set filetype=html.eruby
 autocmd BufNewFile,BufRead *.scss   set filetype=scss.css
 
-" move omnicomplete from c-x c-o to tab
-set completeopt=menuone,menu,longest
-"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-let g:SuperTabDefaultCompletionType = "context"
-
 " Stupid shift key fixes
 cmap W w
 
@@ -146,3 +132,8 @@ nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+" utilsnip settings
+" let g:UltiSnipsExpandTrigger="<tab>" " not used because of youcompleteme
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
