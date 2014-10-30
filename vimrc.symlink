@@ -31,7 +31,7 @@ color kellys
 "Enable spell checking
 set spell
 set spelllang=en_us,de_20
-set spellfile=~/.vim/spellfile.add
+set spellfile=~/.vim/spell/spellfile.add
 noremap <silent> ,s :set spell!<CR>
 highlight clear SpellBad
 highlight clear SpellRare
@@ -74,7 +74,7 @@ let g:LatexBox_autojump = 1
 
 " open file in chrome
 nmap <leader>cr :silent ! open -a 'Google Chrome.app' %:p<cr>
-nmap <leader>sf :silent ! open -a 'Safai.app' %:p<cr>
+nmap <leader>sf :silent ! open -a 'Safari.app' %:p<cr>
 
 " Windows navigation
 noremap <silent> ,h :wincmd h<CR>
