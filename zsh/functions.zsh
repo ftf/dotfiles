@@ -68,6 +68,9 @@ if `type emerge >/dev/null 2>&1`; then
           ;;
         go)
           sudo emerge --quiet --update --newuse --deep --keep-going world
+	  if [ `type rkhunter >/dev/null 2>&1` ]; then                                           
+	    rkhunter --propupd
+	  fi  
           ;;
         *)
           sudo emerge --verbose --quiet --ask --update --newuse --deep --keep-going world
