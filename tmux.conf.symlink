@@ -50,7 +50,7 @@ set-window-option -g window-status-attr bright
 # active window title colors
 set-window-option -g window-status-current-fg white
 set-window-option -g window-status-current-bg red
-#set-window-option -g window-status-current-attr bright 
+#set-window-option -g window-status-current-attr bright
 
 # change status window look
 set-window-option -g window-status-format '#I: #W'
@@ -75,7 +75,7 @@ bind V split-window -v
 bind k select-pane -U
 bind j select-pane -D
 bind h select-pane -L
-unbind l 
+unbind l
 bind l select-pane -R
 bind m last-window
 

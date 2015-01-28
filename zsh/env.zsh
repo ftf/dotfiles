@@ -5,7 +5,7 @@ export LANG="en_US.UTF-8"
 #export LC_ALL="en_US.UTF-8"
 
 #for the output without escape sequences
-export LESS="-erX"  
+export LESS="-erX"
 
 export EDITOR=vim
 
