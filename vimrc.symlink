@@ -81,6 +81,9 @@ let mapleader = "\<SPACE>"
 nmap <leader>cr :silent ! open -a 'Google Chrome.app' %:p<cr>
 nmap <leader>sf :silent ! open -a 'Safari.app' %:p<cr>
 
+" NERDTree
+nmap <leader>n :NERDTreeToggle<CR>
+
 " Windows navigation
 noremap <silent> ,h :wincmd h<CR>
 noremap <silent> ,j :wincmd j<CR>
