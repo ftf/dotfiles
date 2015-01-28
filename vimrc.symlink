@@ -1,3 +1,7 @@
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+call pathogen#helptags()
+
 "Forget compatibility with Vi. Who cares.
 set nocompatible
 
@@ -19,16 +23,17 @@ syntax on
 set ruler
 set number
 
-color kellys 
+" set stylesheet
+color kellys
 
 " if has('gui_running')
-"   color inkpot 
+"   color inkpot
 " endif
 
 "Enable spell checking
 set spell
 set spelllang=en_us,de_20
-set spellfile=~/.janus/spellfile.add
+set spellfile=~/.vim/spell/spellfile.add
 noremap <silent> ,s :set spell!<CR>
 highlight clear SpellBad
 highlight clear SpellRare
@@ -53,10 +58,11 @@ set autowrite
 set smartindent
 set autoindent
 
-" tabkram
+" tabstop thingys
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+set expandtab
 
 " macvim style
 "set guioptions=aAce
@@ -66,12 +72,17 @@ set softtabstop=2
 let g:LatexBox_latexmk_options = '-pvc'
 let g:LatexBox_viewer = '/Applications/Skim.app/Contents/MacOS/Skim'
 let g:LatexBox_output_type = "pdf"
-let g:LatexBox_autojump = 1 
+let g:LatexBox_autojump = 1
 
+" set leader to something
+let mapleader = "\<SPACE>"
 
-" open file in chrome
+" open file in browser
 nmap <leader>cr :silent ! open -a 'Google Chrome.app' %:p<cr>
-nmap <leader>sf :silent ! open -a 'Safai.app' %:p<cr>
+nmap <leader>sf :silent ! open -a 'Safari.app' %:p<cr>
+
+" NERDTree
+nmap <leader>n :NERDTreeToggle<CR>
 
 " Windows navigation
 noremap <silent> ,h :wincmd h<CR>
@@ -79,19 +90,10 @@ noremap <silent> ,j :wincmd j<CR>
 noremap <silent> ,k :wincmd k<CR>
 noremap <silent> ,l :wincmd l<CR>
 
-" toogle paste
-set pastetoggle=<leader>p
 " More useful command-line completion
 set wildmenu
 set wildmode=list:longest
-
-"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE  
-"set completeopt=longest,menuone
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-"  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-"  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+set completeopt=menu,longest
 
 " Bubble single lines
 nmap <C-Up> ddkP
@@ -103,7 +105,8 @@ vmap <C-Down> xp`[V`]
 " Backups
 set backupdir=~/.dotfiles/vimtmp/
 set directory=~/.dotfiles/vimtmp/
-set backup                          " enable backup
+" enable backup
+set backup
 
 " show matching brackets
 set showmatch
@@ -114,31 +117,54 @@ set hidden
 
 " textmate like hidden symbols
 set listchars=tab:▸\ ,eol:¬
-nmap <leader>L :set list!<CR>
+nmap <leader>h :set list!<CR>
 set list!
 
 " ruby things
 autocmd BufNewFile,BufRead *.erb    set filetype=html.eruby
 autocmd BufNewFile,BufRead *.scss   set filetype=scss.css
 
-" move omnicomplete from c-x c-o to tab
-set completeopt=menuone,menu,longest
-"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-let g:SuperTabDefaultCompletionType = "context"
+" add json syntax highlighting
+autocmd BufNewFile,BufRead *.json set ft=javascript
 
-" Stupid shift key fixes
-cmap W w
+" backspace fix
+set backspace=indent,eol,start
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 
-"clearing highlighted search
-nmap <silent> <leader>/ :nohlsearch<CR>
-nmap \q :nohlsearch<CR>
-nmap \l :setlocal number!<CR>
-nmap \p :set paste!<CR>
-nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR> 
+" clearing highlighted search with leader q
+nmap <leader>q :nohlsearch<CR>
 
+" toggle linenumbers
+nmap <leader>l :setlocal number!<CR>
+
+" toggle paste
+nmap <leader>p :set paste!<CR>
+
+" toggle line wrapping
+nmap <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
+
+" CtrlP
+nmap ; :CtrlPBuffer<CR>
+nmap <leader>o :CtrlP<CR>
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|DS_Store)$'
+
+" statusline
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+" Syntastic
+nmap <leader>e :Errors<CR>
+
+" utilsnip settings
+"let g:UltiSnipsExpandTrigger="<tab>" " not used because of youcompleteme
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+
+" youcompleteme
+let g:EclimCompletionMethod = 'omnifunc'
+let g:ycm_collect_identifiers_from_tags_files = 1

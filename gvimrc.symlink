@@ -1,3 +1,6 @@
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+
 set transparency=5
 #color kellys
 color corporation_modified

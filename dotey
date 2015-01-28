@@ -1,4 +1,4 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 
 # The MIT License (MIT)
 # Copyright (c) 2012 Fabian Franke http://fabianfranke.de
@@ -24,7 +24,7 @@ function install() {
   if [ ! -z $1 ]; then
     prefix=$1
   fi
-  
+
   # we have to check if there are any linkable files at all or at strange
   # and wild links will appear
   if  [ "`ls $prefix*.symlink | wc -l`" != 0 ]; then
@@ -113,9 +113,9 @@ function install() {
            ;;
        esac
       fi
-      
+
     # no existing .dotfile in ~, link found file
-    else 
+    else
       echo -e "$SPACER$GREEN+$COLORRESET linking $file to $target"
       ln -s ${PWD}/$file $target
     fi
@@ -130,11 +130,11 @@ function uninstall() {
   fi
 
   # loop over *.symlink file in user .dotfiles/$prefix directory if a link from
-  # the home directory points to the file, delete the symlink. When a backup is 
+  # the home directory points to the file, delete the symlink. When a backup is
   #found restore it.
   for sym in $prefix*.symlink; do
     purefilename=`basename ${sym%.*}`
-    target="$HOME/.$purefilename" 
+    target="$HOME/.$purefilename"
     if [ "`readlink $target`" ==  "${PWD}/$sym" ]; then
       echo -e "$RED-$COLORRESET Deleting $target"
       rm $target
@@ -166,7 +166,7 @@ function installprivatedots() {
   echo -e "$GREEN-$COLORRESET Decrypting, unpacking and linking your private dotfiles"
   if [ -e "$packfilename.des3" ]; then
     openssl des3 -a -d -in $packfilename.des3 -out $packfilename.tbz2 && tar xfj $packfilename.tbz2 && rm $packfilename.tbz2 $packfilename.des3
-  else 
+  else
     echo -e "$RED-$COLORRESET ERROR: Cannot find transport container."
     echo -e "$SPACER$RED-$COLORRESET It should be named $packfilename.des3"
   fi
@@ -210,13 +210,11 @@ function delprivatedots() {
 
 function vimupdate() {
   if `type git >/dev/null 2>&1`; then
-    if [ `git submodule | wc -l | awk '{ print $1; }'` -eq 0 ]; then
-      git submodule update --init
-    fi
-
-    git submodule update
-    cd vim.symlink && git checkout master && git pull origin master && rake
-    cd ..
+#    if [ `git submodule | wc -l | awk '{ print $1; }'` -eq 0 ]; then
+      git submodule update --init --recursive
+#    else
+#      git submodule update --recursive
+#    fi
   else
     echo -e "$RED-$COLORRESET you need git installed to use this function"
   fi
@@ -251,8 +249,8 @@ How to use this:
   Delete your private dotfiles from this computer
 
 ./dotey vimupdate
-Initialize or update the janus vim distribution  (also update or install 
-new vim plugins inside .janus.symlink)
+  Initialize or update all vim bundles
+
 
 EOF
 }

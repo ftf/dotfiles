@@ -9,7 +9,7 @@ alias pu=pushd
 alias po=popd
 alias d='dirs -v'
 alias h=history
-alias grep=egrep
+alias grep='egrep --color=auto'
 alias ll='ls -l'
 alias la='ls -a'
 

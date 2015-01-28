@@ -1,8 +1,7 @@
 #!/bin/zsh
 
-export GREP_OPTIONS='-i --color=auto'
-export GREP_COLOR='1;31'
 export CLICOLOR=1
+GREP_COLORS="mt=01;34"
 #export LSCOLORS=Ahfxcxdxbxegedabagacad
 #export LSCOLORS=ExFxCxDxBxegedabagacad
 #export LSCOLORS=CxfxcxdxExexexHbhBachc
