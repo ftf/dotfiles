@@ -1,2 +1,3 @@
 package-config:foo = boo
 prefix = /usr/local/
+prefix=~/.node
