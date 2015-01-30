@@ -153,7 +153,7 @@ function update() {
   link
 }
 
-# someday todo: merge with install() 
+# someday todo: merge with install()
 function link() {
   echo -e "$GREEN-$COLORRESET Trying to link new files"
   install
@@ -210,11 +210,25 @@ function delprivatedots() {
 
 function vimupdate() {
   if `type git >/dev/null 2>&1`; then
-#    if [ `git submodule | wc -l | awk '{ print $1; }'` -eq 0 ]; then
-      git submodule update --init --recursive
-#    else
-#      git submodule update --recursive
-#    fi
+      OPWD=${PWD}
+      cd vim.symlink/bundle
+      vimupdates=`git submodule update --init --recursive`
+      vimupdates=`echo "$vimupdates" | awk '{ print substr($3, 2, length($3)-3) }'`
+      if [ `echo "$vimupdates" |  sed '/^\s*$/d' | wc -l` -gt 0 ]; then
+        while read -r line; do
+          echo -e "$GREEN-$COLORRESET $line"
+        done <<< "$vimupdates"
+        # if there is a youcompleteme update, compile the binary again
+        if [ `echo "$vimupdates" | grep "youcompleteme" | wc -l` -gt 0 ]; then
+          cd vim-youcompleteme
+          echo -e "$YELLOW-$COLORRESET Compiling youcompleteme binaries, this may take a while"
+          ./install.sh >/dev/null
+          echo -e "$GREEN-$COLORRESET Updated: youcompleteme binaries"
+        fi
+      else
+        echo -e "$GREEN-$COLORRESET No vim submodule bundles update available"
+      fi
+      cd $OPWD
   else
     echo -e "$RED-$COLORRESET you need git installed to use this function"
   fi
