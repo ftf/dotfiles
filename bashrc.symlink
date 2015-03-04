@@ -2,7 +2,6 @@ if [ -f /opt/local/etc/bash_completion ]; then
 	. /opt/local/etc/bash_completion
 fi
 
-export GREP_OPTIONS='--color=always'
 export GREP_COLOR='1;31'
 export CLICOLOR=1
 #export LSCOLORS=Ahfxcxdxbxegedabagacad
