@@ -18,3 +18,4 @@ highlight SpellRare  gui=undercurl cterm=underline ctermfg=red    guisp=orange
 highlight SpellLocal gui=undercurl cterm=underline ctermfg=blue   guisp=blue
 highlight SpellCap   gui=undercurl cterm=underline ctermfg=yellow guisp=Yellow
 
+
