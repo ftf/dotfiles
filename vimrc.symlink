@@ -48,7 +48,7 @@ set showcmd
 set laststatus=2
 
 " psst
-set novisualbell
+set visualbell
 set noerrorbells
 
 " auto save on file change
@@ -146,7 +146,7 @@ nmap <leader>p :set paste!<CR>
 nmap <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
 " CtrlP
-nmap ; :CtrlPBuffer<CR>
+nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>o :CtrlP<CR>
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|DS_Store)$'
@@ -168,3 +168,8 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 " youcompleteme
 let g:EclimCompletionMethod = 'omnifunc'
 let g:ycm_collect_identifiers_from_tags_files = 1
+
+" hardmode
+nnoremap <leader>k <Esc>:call ToggleHardMode()<CR>
+" enable hardmode by default
+"autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()

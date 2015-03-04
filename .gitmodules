@@ -63,3 +63,6 @@
 [submodule "vim.symlink/bundle/vim-bufferline"]
 	path = vim.symlink/bundle/vim-bufferline
 	url = https://github.com/bling/vim-bufferline.git
+[submodule "vim.symlink/bundle/vim-hardmode"]
+	path = vim.symlink/bundle/vim-hardmode
+	url = https://github.com/wikitopian/hardmode.git
