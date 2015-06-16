@@ -173,3 +173,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 nnoremap <leader>k <Esc>:call ToggleHardMode()<CR>
 " enable hardmode by default
 "autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+
+" highlight column 81
+highlight ColorColumn ctermbg=DarkCyan
+call matchadd('ColorColumn', '\%81v', 100)
