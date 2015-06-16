@@ -37,18 +37,28 @@ if `type emerge >/dev/null 2>&1`; then
     cmd=`echo $@ | cut -d' ' -f2-`
     case $1 in
       all)
-        for x in `grep -o  "kvm-.*$" ~/.ssh/config`;   
-        do 
+        for x in `grep -o  "kvm-.*$" ~/.ssh/config`;
+        do
             echo $x
-            ssh $x $cmd; 
+            kvmip=`grep $x -A4 .ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
+            if [ `ping -c1 $kvmip | grep "0 received" | wc -l` -eq 1 ]; then
+              echo "--> offline";
+            else
+              ssh $x $cmd;
+            fi
             echo
         done
         ;;
       *)
         targetHost=kvm-$1
         if grep -o $targetHost ~/.ssh/config >/dev/null; then
-          ssh kvm-$1 $cmd; 
-        else 
+          kvmip=`grep $targetHost -A4 .ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
+          if [ `ping -c1 $kvmip | grep "0 received" | wc -l` -eq 1 ]; then
+            echo "kvm-$1 offline";
+          else
+            ssh kvm-$1 $cmd;
+          fi
+        else
           echo Host kvm-$1 not found
         fi
         ;;
