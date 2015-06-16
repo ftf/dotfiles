@@ -9,7 +9,7 @@ export CLICOLOR=1
 export LESS="-erX" 
 
 #export PATH=/usr/local/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH
-export PATH=/usr/local/sbin:/usr/local/bin:~/.dotfiles/bin/:$PATH
+export PATH=/usr/local/sbin:/usr/local/bin:~/.dotfiles/bin:$PATH
 export DISPLAY=:0.0
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
