@@ -40,7 +40,7 @@ if `type emerge >/dev/null 2>&1`; then
         for x in `grep -o  "kvm-.*$" ~/.ssh/config`;
         do
             echo $x
-            kvmip=`grep $x -A4 .ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
+            kvmip=`grep $x -A4 ~/.ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
             if [ `ping -c1 $kvmip | grep "0 received" | wc -l` -eq 1 ]; then
               echo "--> offline";
             else
