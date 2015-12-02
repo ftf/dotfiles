@@ -33,15 +33,15 @@ function dl() {
 
 # Gentoo only functions
 if `type emerge >/dev/null 2>&1`; then
-  kvmdo() {
+  vmdo() {
     cmd=`echo $@ | cut -d' ' -f2-`
     case $1 in
       all)
-        for x in `grep -o  "kvm-.*$" ~/.ssh/config`;
+        for x in `grep -o  "vm-.*$" ~/.ssh/config`;
         do
             echo $x
-            kvmip=`grep $x -A4 ~/.ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
-            if [ `ping -c1 $kvmip | grep "0 received" | wc -l` -eq 1 ]; then
+            vmip=`grep $x -A4 ~/.ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
+            if [ `ping -c1 $vmip | grep "0 received" | wc -l` -eq 1 ]; then
               echo "--> offline";
             else
               ssh $x $cmd;
@@ -50,16 +50,16 @@ if `type emerge >/dev/null 2>&1`; then
         done
         ;;
       *)
-        targetHost=kvm-$1
+        targetHost=vm-$1
         if grep -o $targetHost ~/.ssh/config >/dev/null; then
-          kvmip=`grep $targetHost -A4 .ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
-          if [ `ping -c1 $kvmip | grep "0 received" | wc -l` -eq 1 ]; then
-            echo "kvm-$1 offline";
+          vmip=`grep $targetHost -A4 .ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
+          if [ `ping -c1 $vmip | grep "0 received" | wc -l` -eq 1 ]; then
+            echo "vm-$1 offline";
           else
-            ssh kvm-$1 $cmd;
+            ssh vm-$1 $cmd;
           fi
         else
-          echo Host kvm-$1 not found
+          echo Host vm-$1 not found
         fi
         ;;
     esac
@@ -78,9 +78,9 @@ if `type emerge >/dev/null 2>&1`; then
           ;;
         go)
           sudo emerge --quiet --update --newuse --deep --keep-going world
-	  if [ `type rkhunter >/dev/null 2>&1` ]; then                                           
-	    rkhunter --propupd
-	  fi  
+          if [ `type rkhunter >/dev/null 2>&1` ]; then
+            rkhunter --propupd
+          fi
           ;;
         *)
           sudo emerge --verbose --quiet --ask --update --newuse --deep --keep-going world
@@ -103,9 +103,9 @@ if [[ "$OSTYPE" =~ darwin ]]; then
     $* | enscript -p - | open -f -a Skim
   }
 
-  function growl() { 
+  function growl() {
     growlnotify -t zsh-reminder -m ${1}
-    return 
+    return
   }
 
   function lepasta {

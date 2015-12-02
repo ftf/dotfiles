@@ -88,9 +88,6 @@ unbind-key C-left
 unbind-key C-Right
 bind-key C-l swap-pane -U
 
-# Select panes with mouse click
-set-option -g mouse-select-pane on
-
 # Clock
 set-window-option -g clock-mode-style 24
 

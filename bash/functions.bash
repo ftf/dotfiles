@@ -16,23 +16,23 @@ rse()
 
 # Gentoo only functions
 if `type emerge >/dev/null 2>&1`; then
-  kvmdo() {
+  vmdo() {
     cmd=`echo $@ | cut -d' ' -f2-`
     case $1 in
       all)
-        for x in `grep -o  "kvm-.*$" ~/.ssh/config`;   
-        do 
+        for x in `grep -o  "vm-.*$" ~/.ssh/config`;
+        do
             echo $x
-            ssh $x $cmd; 
+            ssh $x $cmd;
             echo
         done
         ;;
       *)
-        targetHost=kvm-$1
+        targetHost=vm-$1
         if grep -o $targetHost ~/.ssh/config >/dev/null; then
-          ssh kvm-$1 $cmd; 
-        else 
-          echo Host kvm-$1 not found
+          ssh vm-$1 $cmd;
+        else
+          echo Host vm-$1 not found
         fi
         ;;
     esac
