@@ -9,6 +9,7 @@ alias ...='cd ../..'
 #alias sgu='sudo gem update'
 alias sgu='rvm all do gem update'
 alias grep='egrep --ignore-case --color=auto'
+alias g='egrep --ignore-case --color=auto --recursive'
 
 # cat with syntax hilightning
 if `type pygmentize >/dev/null 2>&1` ; then

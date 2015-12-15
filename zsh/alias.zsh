@@ -10,6 +10,7 @@ alias po=popd
 alias d='dirs -v'
 alias h=history
 alias grep='egrep --ignore-case --color=auto'
+alias g='egrep --ignore-case --color=auto --recursive'
 alias ll='ls -l'
 alias la='ls -a'
 
