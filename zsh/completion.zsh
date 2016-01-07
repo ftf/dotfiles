@@ -48,10 +48,12 @@ zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' \
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # local _myhosts
-_myhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
-zstyle ':completion:*' hosts $_myhosts
-# complete hosts for mosh too 
-compdef mosh=ssh
+if [ -f $HOME/.ssh/known_hosts ]; then
+  _myhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
+  zstyle ':completion:*' hosts $_myhosts
+  # complete hosts for mosh too
+  compdef mosh=ssh
+fi
 
 # complete word from history with menu (from Book: ZSH, OpenSource-Press)
 zle -C hist-complete complete-word _generic
