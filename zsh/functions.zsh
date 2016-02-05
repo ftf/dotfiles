@@ -30,6 +30,16 @@ function dl() {
   done
 }
 
+# webdev stuff, generate a new ssl crt/key with 1 year validity
+function generatesslcert {
+  echo -n "please enter a basename for the certificates: "
+  read certname
+  openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout $certname.key -out $certname.crt
+  echo
+  echo
+  echo "$certname.crt & $certname.key are ready for you"
+}
+
 
 # Gentoo only functions
 if `type emerge >/dev/null 2>&1`; then
