@@ -14,6 +14,10 @@ function decrypt() {
     openssl des3 -d -a -in $1 -out ${1%.des3}
 }
 
+function s() {
+    grep -IR "$@" *
+}
+
 function md() {
   mkdir "$1"
   cd "$1"
@@ -123,6 +127,15 @@ if [[ "$OSTYPE" =~ darwin ]]; then
       ~/.dotfiles/bin/pastee.py $1 | pbcopy;
       /usr/local/bin/growlnotify -n lepasta -t lepasta -m `pbpaste`
     fi
+  }
+
+  function xdebugtoggle() {
+    if [[ -f /usr/local/etc/php/7.0/conf.d/ext-xdebug.ini ]]; then
+      mv /usr/local/etc/php/7.0/conf.d/ext-xdebug.{ini,inix}
+    else
+      mv /usr/local/etc/php/7.0/conf.d/ext-xdebug.{inix,ini}
+    fi
+    lunchy restart php70
   }
 
 fi

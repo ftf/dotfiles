@@ -1,7 +1,3 @@
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-call pathogen#helptags()
-
 "Forget compatibility with Vi. Who cares.
 set nocompatible
 
@@ -19,12 +15,10 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax on
+set t_Co=256
 
 set ruler
 set number
-
-" set stylesheet
-color kellys
 
 " if has('gui_running')
 "   color inkpot
@@ -68,11 +62,36 @@ set expandtab
 "set guioptions=aAce
 "set guifont=Monaco:h12
 
-" latexbox preview in Skim with update on save
-let g:LatexBox_latexmk_options = '-pvc'
-let g:LatexBox_viewer = '/Applications/Skim.app/Contents/MacOS/Skim'
-let g:LatexBox_output_type = "pdf"
-let g:LatexBox_autojump = 1
+
+call plug#begin('~/.vim/plugged')
+Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'https://github.com/bling/vim-bufferline.git'
+Plug 'https://github.com/Valloric/YouCompleteMe.git'
+Plug 'https://github.com/bronson/vim-trailing-whitespace.git'
+Plug 'https://github.com/vim-syntastic/syntastic.git'
+Plug 'https://github.com/mattn/emmet-vim.git'
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/scrooloose/nerdtree.git'
+Plug 'https://github.com/pangloss/vim-javascript.git'
+Plug 'https://github.com/gavocanov/vim-js-indent.git'
+Plug 'https://github.com/michaeljsmith/vim-indent-object.git'
+Plug 'https://github.com/wikitopian/hardmode.git'
+Plug 'https://github.com/airblade/vim-gitgutter.git'
+Plug 'https://github.com/kien/ctrlp.vim.git'
+Plug 'https://github.com/tpope/vim-commentary.git'
+Plug 'https://github.com/flazz/vim-colorschemes.git'
+"Plug 'https://github.com/SirVer/ultisnips.git'
+"Plug 'https://github.com/honza/vim-snippets.git'
+"Plug 'https://github.com/kana/vim-smartinput.git'
+
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'kien/ctrlp', { 'on': ['CtrlP', 'CtrlPBuffer'] }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+call plug#end()
+
+" set stylesheet
+color kellys
 
 " set leader to something
 let mapleader = "\<SPACE>"
@@ -161,9 +180,9 @@ nmap <leader>e :Errors<CR>
 
 " utilsnip settings
 "let g:UltiSnipsExpandTrigger="<tab>" " not used because of youcompleteme
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsExpandTrigger="<c-j>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsExpandTrigger="<c-j>"
 
 " youcompleteme
 let g:EclimCompletionMethod = 'omnifunc'

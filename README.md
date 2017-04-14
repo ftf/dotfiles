@@ -38,9 +38,6 @@ How to use this:
 
 ./dotey privatedots delete
   Delete your private dotfiles from this computer
-
-./dotey vimupdate
-  Initialize or update all vim bundles
 ```
 
 Installation:
@@ -117,12 +114,7 @@ share your ftp or irssi passwords with everyone out there.
 
 Add VIM plugins
 ---------------
-In your .dotfiles directory execute:
-
-```
-git submodule add --force https://github.com/$vimbundle.git vim.symlink/bundle/vim-$bundlename
-```
-Thanks to pathogen the newly downloaded bundle will be availabe with the next start of vim and
+Launch vim and run :PlugInstall thanks to the awesome [vim-plug]:(https://github.com/junegunn/vim-plug)
 
 Some VIM tips
 -------------
@@ -145,10 +137,9 @@ Some VIM tips
 - Toggle vim hardmode with ```Space + k```
   (Disables all for cursor keys and ```h,j,k,l```)
 
-Submodules
+Vim Plugins
 ----------
-Right now all git submodules pulled in are vim bundles.
-- [Pathogen](https://github.com/tpope/vim-pathogen)
+All vim plugins that are pulled in right now:
 - [You complete me](https://github.com/Valloric/YouCompleteMe)
 - [GitGutter](https://github.com/airblade/vim-gitgutter)
 - [Airline](https://github.com/bling/vim-airline.git)

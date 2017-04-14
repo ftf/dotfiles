@@ -18,7 +18,7 @@ setw -g monitor-activity on
 set -g visual-activity on
 
 # aggressive window resizing
-setw -g aggressive-resize on
+#setw -g aggressive-resize on
 
 # start window numbering at 1
 set -g base-index 1
@@ -57,7 +57,7 @@ set-window-option -g window-status-format '#I: #W'
 set-window-option -g window-status-current-format '#I: #W'
 
 # statusline
-set -g status-utf8 on
+#set -g status-utf8 on
 set -g status-left-length 30
 set -g status-right-length 60
 set -g status-justify centre
@@ -68,7 +68,7 @@ set -g status-right "#[fg=green,bright][#[fg=blue,bright]#(uptime | awk -F'[a-z]
 set -g history-limit 5000
 
 # More straight forward key bindings for splitting
-unbind %
+#unbind %
 bind H split-window -h
 unbind '"'
 bind V split-window -v

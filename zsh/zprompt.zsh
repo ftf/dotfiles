@@ -4,35 +4,45 @@
 # Warning: escape the fcking colors!
 # -----------------------------------------------------
 
+# thanks to:
+# https://github.com/nicknisi/dotfiles/blob/master/zsh/prompt.zsh
+# http://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/
 
-
-#autoload -U promptinit
-#promptinit
-#prompt gentoo
 setopt prompt_subst
 
 function battery_charge {
-    echo `~/.dotfiles/bin/battery.py 2>/dev/null`
+  echo `~/.dotfiles/bin/battery.py 2>/dev/null`
 }
 
 #RPROMPT=$(battery_charge)
-function vcs_status {
-    git branch >/dev/null 2>/dev/null && echo "%{$fg_bold[blue]%}git%{$reset_color%} %{$fg[green]%}|%{$reset_color%}" && return
-    hg root >/dev/null 2>/dev/null && echo "%{$fg_bold[blue]%}hg%{$reset_color%} %{$fg[green]%}|%{$reset_color%}"   && return
-    return
+function git_status {
+  git branch >/dev/null 2>/dev/null && echo "🗄  " && return
+  return
 }
 
 function git_current_branch() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo " %{$fg_bold[blue]%}${ref#refs/heads/}%{$reset_color%} %{$fg[green]%}|%{$reset_color%}"
+  echo " on %{$fg_bold[cyan]%}${ref#refs/heads/}%{$reset_color%}%{$reset_color%} "
 }
 
+
 function git_uncommited {
-  git rev-parse --git-dir >/dev/null 2>/dev/null && if [[ `git ls-files -m | wc -l | awk '{ print $1; }'` -gt 0 ]]; then 
-    echo "%{$fg_bold[red]%}✘%{$reset_color%} "
-  else 
-    echo "%{$fg_bold[green]%}✓%{$reset_color%} " 
-  fi
+  git rev-parse --git-dir >/dev/null 2>/dev/null && if [[ `git ls-files -m | wc -l | awk '{ print $1; }'` -gt 0 ]]; then
+  commit_status="%{$fg_bold[red]%}✘%{$reset_color%} "
+else
+  commit_status="%{$fg_bold[green]%}✓%{$reset_color%} "
+fi
+  arrow_status="$(command git rev-list --left-right --count HEAD...@'{u}' 2>/dev/null)"
+
+  # do nothing if the command failed
+  (( !$? )) || return
+
+  # split on tabs
+  arrow_status=(${(ps:\t:)arrow_status})
+  local left=${arrow_status[1]} right=${arrow_status[2]}
+  (( ${right:-0} > 0 )) && arrows+="%{$fg_bold[blue]%}⇣%{$reset_color%}"
+  (( ${left:-0} > 0 )) && arrows+="%{$fg_bold[blue]%}⇡%{$reset_color%}"
+  echo "$commit_status$arrows "
 }
 
 function hg_prompt_info {
@@ -40,32 +50,31 @@ function hg_prompt_info {
   echo " %{$fg_bold[blue]%}`hg branch`%{$reset_color%} %{$fg[green]%}|%{$reset_color%}"
 }
 
+function suspended_jobs() {
+  if [[ `jobs | wc -l` -ne "" ]]; then
+    "%{$fg_bold[orange]%}⏱%{$resetcolor%}  "
+  fi
+}
+
 if [ "$USER" = 'root' ] ; then
   base_prompt="%{$fg_bold[red]%}%m%k%{$reset_color%} "
 else
-  base_prompt="%{$fg_bold[green]%}%n@%m%k%{$reset_color%} "
+  base_prompt="%{$fg[blue]%}%n%{$fg_bold[green]%}@%m%k%{$reset_color%} "
 fi
 post_prompt="%b%f%k"
 
 setopt extended_glob
 
 preexec () {
-    if [[ "$TERM" == "screen" ]]; then
-   local CMD=${1[(wr)^(*=*|sudo|-*)]}
-   echo -ne "\ek$CMD\e\\"
-    fi
+  if [[ "$TERM" == "screen" ]]; then
+    local CMD=${1[(wr)^(*=*|sudo|-*)]}
+    echo -ne "\ek$CMD\e\\"
+  fi
 }
 
 setopt noxtrace localoptions
 
-path_prompt=%1~
-PS1='$(git_uncommited)$base_prompt%{$fg_bold[blue]%}$path_prompt%{$reset_color%} ' # $post_prompt'   #%{$fg_bold[red]%}$(commit_status)%{$reset_color%}$(hg_prompt_info)$(git_current_branch) %{$fg_bold[cyan]%}$%{$reset_color%} $post_prompt'
-PS2='$base_prompt%{$fg_bold[blue]%}$path_prompt%{$reset_color%}%{$fg_bold[blue]%}$(vcs_status) %_> $post_prompt'
-PS3='$base_prompt%{$fg_bold[blue]%}$path_prompt%{$reset_color%}%{$fg[blue]%}$(vcs_status) ?# $post_prompt'
-if [ -e "$HOME/.rvm/bin/rvm-prompt" ]; then
-  RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch) %{$fg_bold[blue]%}$(~/.rvm/bin/rvm-prompt)%{$reset_color%}'
-elif which rbenv > /dev/null; then
-  RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch) %{$fg_bold[blue]%}$(rbenv version-name)%{$reset_color%}'
-else
-  RPROMPT='$(vcs_status)$(hg_prompt_info)$(git_current_branch)'
-fi
+PS1='$base_prompt%{$fg_bold[blue]%}${PWD/#$HOME/~}%{$reset_color%}$(git_current_branch)
+$(git_status)$(git_uncommited)$(suspended_jobs) '
+
+#RPROMPT='$(battery_charge)'

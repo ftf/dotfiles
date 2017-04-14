@@ -54,7 +54,7 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   ## Open current directory
   alias oo='open .'
 
-  alias bubu='brew update && brew upgrade --all'
+  alias bubu='brew update && brew upgrade'
   #alias cleanservices='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
 
   alias tc='/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt'
@@ -89,3 +89,5 @@ alias ..='cd ..'
 alias ...='cd ../..'
 
 alias rake="noglob rake"
+
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"

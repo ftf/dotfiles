@@ -13,6 +13,9 @@ privatedots/*
 
 #submodules
 
+# vim-plugins
+vim.symlink/plugged/*
+
 # vim temp files
 vimtmp/*
 
