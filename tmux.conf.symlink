@@ -1,5 +1,6 @@
 # we like colours
 set -g default-terminal "screen-256color"
+set -g default-command "login-shell"
 
 # change activator to ctrl+z
 unbind C-b
@@ -32,7 +33,7 @@ set -g status-bg default
 
 # pane border
 set -g pane-active-border-bg default
-set -g pane-active-border-fg blue
+set -g pane-active-border-fg colour238
 
 # command prompt
 set -g message-bg blue
@@ -48,8 +49,8 @@ set-window-option -g window-status-attr bright
 #set-window-option -g window-status-alert-fg blue
 
 # active window title colors
-set-window-option -g window-status-current-fg white
-set-window-option -g window-status-current-bg red
+set-window-option -g window-status-current-fg colour75
+set-window-option -g window-status-current-bg black
 #set-window-option -g window-status-current-attr bright
 
 # change status window look
@@ -61,8 +62,8 @@ set-window-option -g window-status-current-format '#I: #W'
 set -g status-left-length 30
 set -g status-right-length 60
 set -g status-justify centre
-set -g status-left '#[fg=green,bright][ #h ]['
-set -g status-right "#[fg=green,bright][#[fg=blue,bright]#(uptime | awk -F'[a-z]:' '{ print $2}') #[fg=green,bright]][ #[fg=blue,bright]%d.%m.%Y %H:%M #[fg=green,bright]]"
+set -g status-left '#[fg=colour238][#[fg=blue,bright] #h #[fg=colour238]]'
+set -g status-right "#[fg=colour238][#[fg=blue,bright]#(uptime | awk -F'[a-z]:' '{ print $2}') #[fg=colour238]][ #[fg=blue,bright]%d.%m.%Y %H:%M #[fg=colour238]]"
 
 # scrollback buffer n lines
 set -g history-limit 5000

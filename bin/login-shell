@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# thanks nicknisi https://github.com/nicknisi/dotfiles/blob/master/bin/login-shell
+
+if [[ "$OSTYPE" =~ darwin ]]; then
+  shell=$(basename "$SHELL")
+
+  # check if reattach-to-user-namespace is available
+  if [ -n "$(command -v reattach-to-user-namespace)" ]; then
+    reattach-to-user-namespace -l "$shell"
+  else
+  exec "$shell -l"
+  fi
+fi

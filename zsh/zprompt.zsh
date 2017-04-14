@@ -22,7 +22,7 @@ function git_status {
 
 function git_current_branch() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo " on %{$fg_bold[cyan]%}${ref#refs/heads/}%{$reset_color%}%{$reset_color%} "
+  echo " on %{$fg_bold[blue]%}${ref#refs/heads/}%{$reset_color%}%{$reset_color%} "
 }
 
 
