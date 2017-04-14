@@ -28,10 +28,14 @@ function git_current_branch() {
 
 function git_uncommited {
   git rev-parse --git-dir >/dev/null 2>/dev/null && if [[ `git ls-files -m | wc -l | awk '{ print $1; }'` -gt 0 ]]; then
-  commit_status="%{$fg_bold[red]%}✘%{$reset_color%} "
-else
-  commit_status="%{$fg_bold[green]%}✓%{$reset_color%} "
-fi
+    commit_status="%{$fg_bold[red]%}✘%{$reset_color%}"
+  else
+    commit_status="%{$fg_bold[green]%}✓%{$reset_color%}"
+  fi
+  echo "$commit_status "
+}
+
+function git_pushstate {
   arrow_status="$(command git rev-list --left-right --count HEAD...@'{u}' 2>/dev/null)"
 
   # do nothing if the command failed
@@ -41,8 +45,8 @@ fi
   arrow_status=(${(ps:\t:)arrow_status})
   local left=${arrow_status[1]} right=${arrow_status[2]}
   (( ${right:-0} > 0 )) && arrows+="%{$fg_bold[blue]%}⇣%{$reset_color%}"
-  (( ${left:-0} > 0 )) && arrows+="%{$fg_bold[blue]%}⇡%{$reset_color%}"
-  echo "$commit_status$arrows "
+  (( ${left:-0} > 0 )) && arrows+="%{$fg_bold[green]%}⇡%{$reset_color%}"
+  echo "$arrows "
 }
 
 function hg_prompt_info {
@@ -52,7 +56,7 @@ function hg_prompt_info {
 
 function suspended_jobs() {
   if [[ `jobs | wc -l` -ne "" ]]; then
-    "%{$fg_bold[orange]%}⏱%{$resetcolor%}  "
+    echo "⏱%  "
   fi
 }
 
@@ -75,6 +79,6 @@ preexec () {
 setopt noxtrace localoptions
 
 PS1='$base_prompt%{$fg_bold[blue]%}${PWD/#$HOME/~}%{$reset_color%}$(git_current_branch)
-$(git_status)$(git_uncommited)$(suspended_jobs) '
+$(git_status)$(git_pushstate)$(git_uncommited)$(suspended_jobs) '
 
 #RPROMPT='$(battery_charge)'
