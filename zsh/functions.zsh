@@ -122,7 +122,7 @@ if [[ "$OSTYPE" =~ darwin ]]; then
     return
   }
 
-  function lepasta {
+  function lepasta() {
     if [[ "$OSTYPE" =~ darwin ]]; then
       ~/.dotfiles/bin/pastee.py $1 | pbcopy;
       /usr/local/bin/growlnotify -n lepasta -t lepasta -m `pbpaste`
@@ -136,6 +136,11 @@ if [[ "$OSTYPE" =~ darwin ]]; then
       mv /usr/local/etc/php/7.0/conf.d/ext-xdebug.{inix,ini}
     fi
     lunchy restart php70
+  }
+
+  function reloaddns() {
+    sudo killall -HUP mDNSResponder
+    sudo lunchy restart unbound
   }
 
 fi
