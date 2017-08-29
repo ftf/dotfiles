@@ -34,11 +34,24 @@ function dl() {
   done
 }
 
+# colored man pages
+man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+        man "$@"
+  }
+
 # webdev stuff, generate a new ssl crt/key with 1 year validity
 function generatesslcert {
   echo -n "please enter a basename for the certificates: "
   read certname
-  openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout $certname.key -out $certname.crt
+  openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_req -keyout $certname.key -out $certname.crt
   echo
   echo
   echo "$certname.crt & $certname.key are ready for you"
@@ -130,12 +143,12 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   }
 
   function xdebugtoggle() {
-    if [[ -f /usr/local/etc/php/7.0/conf.d/ext-xdebug.ini ]]; then
-      mv /usr/local/etc/php/7.0/conf.d/ext-xdebug.{ini,inix}
+    if [[ -f /usr/local/etc/php/7.1/conf.d/ext-xdebug.ini ]]; then
+      mv /usr/local/etc/php/7.1/conf.d/ext-xdebug.{ini,inix}
     else
-      mv /usr/local/etc/php/7.0/conf.d/ext-xdebug.{inix,ini}
+      mv /usr/local/etc/php/7.1/conf.d/ext-xdebug.{inix,ini}
     fi
-    lunchy restart php70
+    lunchy restart php71
   }
 
   function reloaddns() {

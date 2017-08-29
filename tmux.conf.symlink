@@ -41,12 +41,9 @@ set -g message-fg white
 set -g message-attr bright
 
 # default window title colors
-set-window-option -g window-status-fg white
-set-window-option -g window-status-bg default
+set-window-option -g window-status-fg black
+set-window-option -g window-status-bg colour238
 set-window-option -g window-status-attr bright
-#set-window-option -g window-status-alert-attr none
-#set-window-option -g window-status-alert-bg default
-#set-window-option -g window-status-alert-fg blue
 
 # active window title colors
 set-window-option -g window-status-current-fg colour75

@@ -13,6 +13,7 @@ alias grep='egrep --ignore-case --color=auto'
 alias g='egrep --ignore-case --color=auto --recursive'
 alias ll='ls -l'
 alias la='ls -a'
+alias tf='tail -f'
 
 # Global aliases -- These do not have to be
 # at the beginning of the command line.
