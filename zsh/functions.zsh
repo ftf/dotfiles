@@ -47,14 +47,46 @@ man() {
         man "$@"
   }
 
-# webdev stuff, generate a new ssl crt/key with 1 year validity
+# webdev stuff, generate a new ssl crt/key with 3 year validity
 function generatesslcert {
-  echo -n "please enter a basename for the certificates: "
-  read certname
-  openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_req -keyout $certname.key -out $certname.crt
+	echo -n "please enter a domain for the certificates: "
+  read DOMAIN
+
+  DAYS=1080
+  PASSPHRASE=""
+  CONFIG_FILE="/tmp/sslconfig.txt"
+
+  cat > $CONFIG_FILE <<-EOF
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+x509_extensions = v3_req
+distinguished_name = dn
+
+[dn]
+C = DE
+ST = BY
+L = Munich
+O = IT Crowd
+OU = Self Signed for a reason
+emailAddress = webmaster@$DOMAIN
+CN = $DOMAIN
+
+[v3_req]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = *.$DOMAIN
+DNS.2 = $DOMAIN
+EOF
+
+  FILE_NAME="$DOMAIN"
+  openssl req -new -x509 -newkey rsa:2048 -sha256 -nodes -keyout "$FILE_NAME.key" -days $DAYS -out "$FILE_NAME.crt" -passin pass:$PASSPHRASE -config "$CONFIG_FILE" >/dev/null
+  rm $CONFIG_FILE
   echo
   echo
-  echo "$certname.crt & $certname.key are ready for you"
+  echo "$DOMAIN.crt & $DOMAIN.key are ready for you"
 }
 
 

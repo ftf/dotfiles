@@ -92,3 +92,8 @@ alias ...='cd ../..'
 alias rake="noglob rake"
 
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+#git stuff
+alias gd='git diff'
+alias gc='git commit'
+alias ga='git add'
