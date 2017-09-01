@@ -66,5 +66,7 @@ fi
 setopt nomatch
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && export PATH=$PATH:$HOME/.rvm/bin && source "$HOME/.rvm/scripts/rvm"
-
 if which rbenv > /dev/null; then export PATH="$HOME/.rbenv/bin:$PATH" && eval "$(rbenv init -)"; fi
+
+[[ -f "$HOME/.acme.sh/acme.sh" ]] && . "/$HOME/.acme.sh/acme.sh.env"
+
