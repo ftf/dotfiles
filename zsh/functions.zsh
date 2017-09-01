@@ -124,7 +124,23 @@ if `type emerge >/dev/null 2>&1`; then
     esac
   }
 
+  emerge() {
+    if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
+      print -P \["%F{198}*%f"\] remounting /var/tmp with exec,suid
+      mount -o remount,exec,suid /var/tmp
+      /usr/bin/emerge $@
+      print -P \["%F{198}*%f"\] remounting /var/tmp with noexec,nosuid
+      mount -o remount,noexec,nosuid /var/tmp
+    else
+      /usr/bin/emerge $@
+    fi
+  }
+
   up() {
+      if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
+        mount -o remount,exec,suid /var/tmp
+      fi
+
       case $@ in
         fixdeps)
           sudo revdep-rebuild -pqi
@@ -133,7 +149,7 @@ if `type emerge >/dev/null 2>&1`; then
           sudo dispatch-conf
           ;;
         pretend)
-          sudo emerge --verbose --quiet --pretend --update --newuse --deep world
+          emerge --verbose --quiet --pretend --update --newuse --deep world
           ;;
         go)
           sudo emerge --quiet --update --newuse --deep --keep-going world
@@ -145,6 +161,9 @@ if `type emerge >/dev/null 2>&1`; then
           sudo emerge --verbose --quiet --ask --update --newuse --deep --keep-going world
           ;;
       esac
+      if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
+        mount -o remount,noexec,nosuid /var/tmp
+      fi
     }
 
   mg() {
