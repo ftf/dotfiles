@@ -138,7 +138,7 @@ if `type emerge >/dev/null 2>&1`; then
 
   up() {
       if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
-        mount -o remount,exec,suid /var/tmp
+        sudo mount -o remount,exec,suid /var/tmp
       fi
 
       case $@ in
@@ -162,7 +162,7 @@ if `type emerge >/dev/null 2>&1`; then
           ;;
       esac
       if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
-        mount -o remount,noexec,nosuid /var/tmp
+        sudo mount -o remount,noexec,nosuid /var/tmp
       fi
     }
 
