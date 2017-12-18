@@ -159,6 +159,9 @@ if `type emerge >/dev/null 2>&1`; then
           ;;
         *)
           sudo emerge --verbose --quiet --ask --update --newuse --deep --keep-going world
+          if [ `type rkhunter >/dev/null 2>&1` ]; then
+            rkhunter --propupd
+          fi
           ;;
       esac
       if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
