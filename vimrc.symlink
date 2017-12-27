@@ -77,7 +77,7 @@ Plug 'gavocanov/vim-js-indent'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'wikitopian/hardmode'
 Plug 'airblade/vim-gitgutter'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-commentary'
 Plug 'flazz/vim-colorschemes'
 "Plug 'SirVer/ultisnips'
@@ -85,7 +85,7 @@ Plug 'flazz/vim-colorschemes'
 "Plug 'kana/vim-smartinput'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'kien/ctrlp', { 'on': ['CtrlP', 'CtrlPBuffer'] }
+Plug 'ctrlpvim/ctrlp', { 'on': ['CtrlP', 'CtrlPBuffer'] }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 call plug#end()
