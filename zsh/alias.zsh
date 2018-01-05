@@ -14,6 +14,13 @@ alias g='egrep --ignore-case --color=auto --recursive'
 alias ll='ls -l'
 alias la='ls -a'
 alias tf='tail -f'
+alias mount='mount |column -t'
+alias mkdir='mkdir -pv'
+alias sha1='openssl sha1'
+# resume by default
+alias wget='wget -c'
+alias df='df -h'
+alias du='du -h'
 
 # Global aliases -- These do not have to be
 # at the beginning of the command line.
@@ -47,6 +54,10 @@ alias hl='less -R'
 ## Show history
 alias history='fc -l 1'
 
+if [[ "$OSTYPE" =~ linux ]]; then
+  alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers'
+  alias ports='netstat -tulanp'
+fi
 # OS X only aliases
 if [[ "$OSTYPE" =~ darwin ]]; then
   ## Quick-look a file (^C to close)
