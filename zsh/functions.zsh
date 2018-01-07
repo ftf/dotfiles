@@ -125,7 +125,7 @@ if `type emerge >/dev/null 2>&1`; then
   }
 
   emerge() {
-    if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
+    if [[ `mount | grep '/var/tmp' | grep noexec | wc -l` -eq 1 ]]; then
       print -P \["%F{198}*%f"\] remounting /var/tmp with exec,suid
       mount -o remount,exec,suid /var/tmp
       /usr/bin/emerge $@
@@ -137,7 +137,7 @@ if `type emerge >/dev/null 2>&1`; then
   }
 
   up() {
-      if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
+      if [[ `mount | grep '/var/tmp' | grep noexec | wc -l` -eq 1 ]]; then
         sudo mount -o remount,exec,suid /var/tmp
       fi
 
@@ -164,7 +164,7 @@ if `type emerge >/dev/null 2>&1`; then
           fi
           ;;
       esac
-      if [[ `mount | grep '/var/tmp type' | wc -l` -eq 1 ]]; then
+      if [[ `mount | grep '/var/tmp' | grep exec | wc -l` -eq 1 ]]; then
         sudo mount -o remount,noexec,nosuid /var/tmp
       fi
     }
