@@ -14,7 +14,6 @@ alias g='egrep --ignore-case --color=auto --recursive'
 alias ll='ls -l'
 alias la='ls -a'
 alias tf='tail -f'
-alias mount='mount |column -t'
 alias mkdir='mkdir -pv'
 alias sha1='openssl sha1'
 # resume by default

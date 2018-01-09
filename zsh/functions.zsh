@@ -18,6 +18,19 @@ function s() {
     grep -IR "$@" *
 }
 
+function mount() {
+  if [[ "$OSTYPE" =~ darwin ]]; then
+    REALMOUNT=/sbin/mount
+  else
+    REALMOUNT=/bin/mount
+  fi
+  if [[ "$#" -eq 0 ]]; then
+    $REALMOUNT | column -t
+  else
+    $REALMOUNT $@
+  fi
+}
+
 function md() {
   mkdir "$1"
   cd "$1"
@@ -197,12 +210,12 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   }
 
   function xdebugtoggle() {
-    if [[ -f /usr/local/etc/php/7.1/conf.d/ext-xdebug.ini ]]; then
-      mv /usr/local/etc/php/7.1/conf.d/ext-xdebug.{ini,inix}
+    if [[ -f /usr/local/etc/php/7.2/conf.d/ext-xdebug.ini ]]; then
+      mv /usr/local/etc/php/7.2/conf.d/ext-xdebug.{ini,inix}
     else
-      mv /usr/local/etc/php/7.1/conf.d/ext-xdebug.{inix,ini}
+      mv /usr/local/etc/php/7.2/conf.d/ext-xdebug.{inix,ini}
     fi
-    lunchy restart php71
+    lunchy restart php72
   }
 
   function reloaddns() {
