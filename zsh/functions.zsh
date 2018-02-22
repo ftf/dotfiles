@@ -60,8 +60,68 @@ man() {
         man "$@"
   }
 
+# webdev stuff, generate a new ca
+function generatesslca {
+	echo -n "please enter a authority domain for the CA: "
+  read CA
+
+  DAYS=3650
+  PASSPHRASE=""
+  CONFIG_FILE="/tmp/sslconfig.txt"
+
+  cat > $CONFIG_FILE <<-EOF
+[ req ]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = v3_req
+x509_extensions = v3_req
+distinguished_name = dn
+
+[ dn ]
+C = DE
+ST = BY
+L = Munich
+O = IT Crowd
+OU = Self Signed for a reason
+emailAddress = webmaster@${CA}
+CN = ${CA} CA
+
+[ v3_ca ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer
+basicConstraints = critical, CA:TRUE, pathlen:3
+keyUsage = critical, cRLSign, keyCertSign
+nsCertType = sslCA, emailCA
+EOF
+
+  FILE_NAME="$CA"
+
+  mkdir -p ~/.ssl
+  chmod 700 ~/.ssl
+  openssl genrsa -aes256 -out ~/.ssl/ca.key.pem 2048
+  openssl req -new -x509 -subj "/CN=$CA" -extensions v3_ca -days $DAYS -key ~/.ssl/ca.key.pem -sha256 -out ~/.ssl/ca.pem -config $CONFIG_FILE
+
+  echo "Remove Passphrase? (y/n)"
+  read removepass
+
+  if [[ $removepass -eq "y" ]]; then
+    openssl rsa -in ~/.ssl/ca.key.pem -out ~/.ssl/ca.key.pem
+  fi
+  chmod 400 ~/.ssl/ca*
+
+  rm $CONFIG_FILE
+  echo
+  echo
+  echo "$DOMAIN CA is ready for you"
+}
+
 # webdev stuff, generate a new ssl crt/key with 3 year validity
 function generatesslcert {
+  if [[ ! -f ~/.ssl/ca.pem ]]; then
+    echo "no CA found, please execute generatesslca first"
+    return
+  fi
 	echo -n "please enter a domain for the certificates: "
   read DOMAIN
 
@@ -70,32 +130,45 @@ function generatesslcert {
   CONFIG_FILE="/tmp/sslconfig.txt"
 
   cat > $CONFIG_FILE <<-EOF
-[req]
+[ req ]
 default_bits = 2048
 prompt = no
 default_md = sha256
+req_extensions = v3_req
 x509_extensions = v3_req
 distinguished_name = dn
 
-[dn]
+[ dn ]
 C = DE
 ST = BY
 L = Munich
 O = IT Crowd
 OU = Self Signed for a reason
-emailAddress = webmaster@$DOMAIN
-CN = $DOMAIN
+emailAddress = webmaster@${DOMAIN}
+CN = ${DOMAIN%.*}
 
-[v3_req]
+[ v3_ca ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer
+basicConstraints = critical, CA:TRUE, pathlen:3
+keyUsage = critical, cRLSign, keyCertSign
+nsCertType = sslCA, emailCA
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = *.$DOMAIN
-DNS.2 = $DOMAIN
+DNS.1 = $DOMAIN
+DNS.2 = *.$DOMAIN
 EOF
 
   FILE_NAME="$DOMAIN"
-  openssl req -new -x509 -newkey rsa:2048 -sha256 -nodes -keyout "$FILE_NAME.key" -days $DAYS -out "$FILE_NAME.crt" -passin pass:$PASSPHRASE -config "$CONFIG_FILE" >/dev/null
+  openssl genrsa -out $DOMAIN.key 2048
+  openssl req -subj "/CN=$DOMAIN" -extensions v3_req -sha256 -new -key $DOMAIN.key -out $DOMAIN.csr -config $CONFIG_FILE
+  openssl x509 -req -extensions v3_req -days 3650 -sha256 -in $DOMAIN.csr -CA ~/.ssl/ca.pem -CAkey ~/.ssl/ca.key.pem -CAcreateserial -out $DOMAIN.crt -extfile $CONFIG_FILE
+  rm $DOMAIN.csr
   rm $CONFIG_FILE
   echo
   echo
