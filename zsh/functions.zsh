@@ -235,16 +235,16 @@ if `type emerge >/dev/null 2>&1`; then
           sudo dispatch-conf
           ;;
         pretend)
-          emerge --verbose --quiet --pretend --update --newuse --deep world
+          emerge --verbose --quiet --pretend --update --newuse --with-bdeps=y --deep world
           ;;
         go)
-          sudo emerge --quiet --update --newuse --deep --keep-going world
+          sudo emerge --quiet --update --newuse --deep --with-bdeps=y --complete-graph=y --keep-going world
           if `type rkhunter >/dev/null`; then
             rkhunter --propupd
           fi
           ;;
         *)
-          sudo emerge --verbose --quiet --ask --update --newuse --deep --keep-going world
+          sudo emerge --verbose --quiet --ask --update --newuse --deep --with-bdeps=y --complete-graph=y --keep-going world
           if `type rkhunter >/dev/null`; then
             rkhunter --propupd
           fi
