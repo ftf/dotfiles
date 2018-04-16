@@ -48,7 +48,7 @@ function dl() {
 }
 
 # colored man pages
-man() {
+function man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
         LESS_TERMCAP_md=$(printf "\e[1;31m") \
