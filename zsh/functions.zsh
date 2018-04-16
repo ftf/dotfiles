@@ -178,7 +178,7 @@ EOF
 
 # Gentoo only functions
 if `type emerge >/dev/null 2>&1`; then
-  vmdo() {
+  function vmdo() {
     cmd=`echo $@ | cut -d' ' -f2-`
     case $1 in
       all)
@@ -210,7 +210,7 @@ if `type emerge >/dev/null 2>&1`; then
     esac
   }
 
-  emerge() {
+  function emerge() {
     if [[ `mount | grep '/var/tmp' | grep noexec | wc -l` -eq 1 ]]; then
       print -P \["%F{198}*%f"\] remounting /var/tmp with exec,suid
       mount -o remount,exec,suid /var/tmp
@@ -222,7 +222,7 @@ if `type emerge >/dev/null 2>&1`; then
     fi
   }
 
-  up() {
+  function up() {
       if [[ `mount | grep '/var/tmp' | grep noexec | wc -l` -eq 1 ]]; then
         sudo mount -o remount,exec,suid /var/tmp
       fi
@@ -255,7 +255,7 @@ if `type emerge >/dev/null 2>&1`; then
       fi
     }
 
-  mg() {
+  function mg() {
       grep "$@" /var/log/messages
   }
 fi
