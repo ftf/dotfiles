@@ -240,13 +240,13 @@ if `type emerge >/dev/null 2>&1`; then
         go)
           sudo emerge --quiet --update --newuse --deep --with-bdeps=y --complete-graph=y --keep-going world
           if `type rkhunter >/dev/null`; then
-            rkhunter --propupd
+            sudo rkhunter --propupd
           fi
           ;;
         *)
           sudo emerge --verbose --quiet --ask --update --newuse --deep --with-bdeps=y --complete-graph=y --keep-going world
           if `type rkhunter >/dev/null`; then
-            rkhunter --propupd
+            sudo rkhunter --propupd
           fi
           ;;
       esac
