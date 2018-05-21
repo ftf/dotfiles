@@ -45,14 +45,14 @@ if `type emerge >/dev/null 2>&1`; then
         for x in `grep -o  "kvm-.*$" ~/.ssh/config`;
         do
             echo $x
-            ssh $x $cmd;
+            ssh $x "$cmd";
             echo
         done
         ;;
       *)
         targetHost=vm-$1
         if grep -o $targetHost ~/.ssh/config >/dev/null; then
-          ssh vm-$1 $cmd;
+          ssh vm-$1 "$cmd";
         else
           echo Host vm-$1 not found
         fi

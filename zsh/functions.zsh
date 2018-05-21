@@ -189,7 +189,7 @@ if `type emerge >/dev/null 2>&1`; then
             if [ `ping -c1 $vmip | grep "0 received" | wc -l` -eq 1 ]; then
               echo "--> offline";
             else
-              ssh $x $cmd;
+              ssh $x "$cmd";
             fi
             echo
         done
@@ -201,7 +201,7 @@ if `type emerge >/dev/null 2>&1`; then
           if [ `ping -c1 $vmip | grep "0 received" | wc -l` -eq 1 ]; then
             echo "vm-$1 offline";
           else
-            ssh kvm-$1 $cmd;
+            ssh kvm-$1 "$cmd";
           fi
         else
           echo Host vm-$1 not found
