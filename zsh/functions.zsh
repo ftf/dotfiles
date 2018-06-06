@@ -182,7 +182,7 @@ if `type emerge >/dev/null 2>&1`; then
     cmd=`echo $@ | cut -d' ' -f2-`
     case $1 in
       all)
-        for x in `grep -o  "kvm-.*$" ~/.ssh/config`;
+        for x in `grep -o  "(kvm|lxc)-.*$" ~/.ssh/config`;
         do
             echo $x
             vmip=`grep $x -A4 ~/.ssh/config | grep -o "[[:digit:]]+.[[:digit:]]+.[[:digit:]]+.[[:digit:]]+"`
