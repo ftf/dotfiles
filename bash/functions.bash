@@ -18,7 +18,22 @@ man() {
         LESS_TERMCAP_ue=$(printf "\e[0m") \
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
         man "$@"
-  }
+}
+
+function rgf() {
+  if [ ! -f "`which fzf`" ]; then
+    echo install fzf;
+    exit
+  fi
+  if [ ! -f "`which rg`" ]; then
+    echo install rg;
+    exit
+  fi
+  FILE=$(rg -il "$@" | fzf -0 -1 --ansi --preview "cat {} | rg "$@" --context 3 --color=always")
+  if [ $FILE ]; then
+    vim $FILE
+  fi
+}
 
 # webdev stuff, generate a new ssl crt/key with 1 year validity
 function generatesslcert {
@@ -94,6 +109,6 @@ if [[ "$OSTYPE" =~ darwin ]]; then
 
   sis()
   {
-    $* | enscript -p - | open -f -a Skim
+    cat "$@" | enscript -p - | open -f -a Skim
   }
 fi

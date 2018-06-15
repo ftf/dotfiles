@@ -64,41 +64,33 @@ set expandtab
 
 
 call plug#begin('~/.vim/plugged')
-Plug 'vim-airline/vim-airline'
+let g:plug_shallow  = 1
+Plug 'itchyny/lightline.vim'
 Plug 'bling/vim-bufferline'
-Plug 'Valloric/YouCompleteMe'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'gavocanov/vim-js-indent'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'wikitopian/hardmode'
 Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-commentary'
 Plug 'flazz/vim-colorschemes'
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
-"Plug 'kana/vim-smartinput'
-
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'ctrlpvim/ctrlp', { 'on': ['CtrlP', 'CtrlPBuffer'] }
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 call plug#end()
+
 
 " set stylesheet
 color kellys
 
 " set leader to something
 let mapleader = "\<SPACE>"
-
-" open file in browser
-nmap <leader>cr :silent ! open -a 'Google Chrome.app' %:p<cr>
-nmap <leader>sf :silent ! open -a 'Safari.app' %:p<cr>
 
 " NERDTree
 nmap <leader>n :NERDTreeToggle<CR>
@@ -164,29 +156,14 @@ nmap <leader>p :set paste!<CR>
 " toggle line wrapping
 nmap <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
-" CtrlP
-nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>o :CtrlP<CR>
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|DS_Store)$'
+" fzf
+nmap <leader>b :Buffers<CR>
+nmap <leader>o :Files<CR>
+nmap <leader>h :History<CR>
 
-" statusline
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" ALE
+let g:ale_completion_enabled = 1
 
-" Syntastic
-nmap <leader>e :Errors<CR>
-
-" utilsnip settings
-"let g:UltiSnipsExpandTrigger="<tab>" " not used because of youcompleteme
-"let g:UltiSnipsJumpForwardTrigger="<c-j>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-"let g:UltiSnipsExpandTrigger="<c-j>"
-
-" youcompleteme
-let g:EclimCompletionMethod = 'omnifunc'
-let g:ycm_collect_identifiers_from_tags_files = 1
 
 " hardmode
 nnoremap <leader>k <Esc>:call ToggleHardMode()<CR>

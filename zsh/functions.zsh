@@ -58,7 +58,22 @@ function man() {
         LESS_TERMCAP_ue=$(printf "\e[0m") \
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
         man "$@"
-  }
+}
+
+function rgf() {
+  if [ ! -f "`which fzf`" ]; then
+    echo install fzf;
+    exit
+  fi
+  if [ ! -f "`which rg`" ]; then
+    echo install rg;
+    exit
+  fi
+  FILE=$(rg -il "$@" | fzf -0 -1 --ansi --preview "cat {} | rg "$@" --context 3 --color=always")
+  if [ $FILE ]; then
+    vim $FILE
+  fi
+}
 
 # webdev stuff, generate a new ca
 function generatesslca {
@@ -267,12 +282,7 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   }
 
   function sis() {
-    $* | enscript -p - | open -f -a Skim
-  }
-
-  function growl() {
-    growlnotify -t zsh-reminder -m ${1}
-    return
+    cat "$@" | enscript -p - | open -f -a Skim
   }
 
   function lepasta() {
