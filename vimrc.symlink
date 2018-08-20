@@ -159,7 +159,7 @@ nmap <leader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 " fzf
 nmap <leader>b :Buffers<CR>
 nmap <leader>o :Files<CR>
-nmap <leader>h :History<CR>
+nmap <leader>H :History<CR>
 
 " ALE
 let g:ale_completion_enabled = 1
