@@ -66,7 +66,7 @@ function rgf() {
     exit
   fi
   if [ ! -f "`which rg`" ]; then
-    echo install rg;
+    echo install ripgrep;
     exit
   fi
   FILE=$(rg -il "$@" | fzf -0 -1 --ansi --preview "cat {} | rg "$@" --context 3 --color=always")
