@@ -46,16 +46,13 @@ existingkernels=(`/bin/grep --perl-regexp --only-matching '(?<=kernel-)[\d\.]*' 
 if [[ $newkernel == ${existingkernels[1]} ]]; then
   echo "New kernel version already configured, not going to touch $menulst"
 else
-  if [ `type grub-mkconfig >/dev/null 2>&1` ]; then
-    # assuming grub2
-    grub-mkconfig -o /boot/grub/grub.cfg
+  if [ -f /usr/sbin/grub-mkconfig ]; then
+    /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
   else
-    # accuming grub-static
     echo "Old kernels:"
     /bin/grep --perl-regexp '(title|kernel)' $menulst
     sed -i.back --expression 's/'${existingkernels[1]}'/'$newkernel'/g' --expression 's/'${existingkernels[0]}'/'${existingkernels[1]}'/g' $menulst
-    echo "New kernels:" 
+    echo "New kernels:"
     /bin/grep --perl-regexp '(title|kernel)' $menulst
   fi
 fi
-umount /boot
