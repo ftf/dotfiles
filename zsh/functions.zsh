@@ -275,37 +275,5 @@ if `type emerge >/dev/null 2>&1`; then
   }
 fi
 
-# OS X only functions
-if [[ "$OSTYPE" =~ darwin ]]; then
-  function manp() {
-    man -t "${1}" | open -f -a Skim
-  }
-
-  function sis() {
-    cat "$@" | enscript -p - | open -f -a Skim
-  }
-
-  function lepasta() {
-    if [[ "$OSTYPE" =~ darwin ]]; then
-      ~/.dotfiles/bin/pastee.py $1 | pbcopy;
-      /usr/local/bin/growlnotify -n lepasta -t lepasta -m `pbpaste`
-    fi
-  }
-
-  function xdebugtoggle() {
-    if [[ -f /usr/local/etc/php/7.2/conf.d/ext-xdebug.ini ]]; then
-      mv /usr/local/etc/php/7.2/conf.d/ext-xdebug.{ini,inix}
-    else
-      mv /usr/local/etc/php/7.2/conf.d/ext-xdebug.{inix,ini}
-    fi
-    lunchy restart php72
-  }
-
-  function reloaddns() {
-    sudo killall -HUP mDNSResponder
-    sudo lunchy restart unbound
-  }
-
-fi
 
 test $SSH_AUTH_SOCK && ln -sf "$SSH_AUTH_SOCK" "/tmp/ssh-agent-$USER-screen"

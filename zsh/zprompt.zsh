@@ -61,9 +61,11 @@ function suspended_jobs() {
 }
 
 if [ "$USER" = 'root' ] ; then
-  base_prompt="%{$fg_bold[red]%}%m%k%{$reset_color%} "
+ # base_prompt="%{$fg_bold[red]%}%m%k%{$reset_color%} "
+  base_prompt="%{$fg_bold[red]|%{$reset_color%} "
 else
-  base_prompt="%{$fg[blue]%}%n%{$fg_bold[green]%}@%m%k%{$reset_color%} "
+  #base_prompt="%{$fg[blue]%}%n%{$fg_bold[green]%}@%m%k%{$reset_color%} "
+  base_prompt="%{$fg[green]%}|%{$reset_color%} "
 fi
 post_prompt="%b%f%k"
 

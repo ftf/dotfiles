@@ -11,8 +11,15 @@ alias d='dirs -v'
 alias h=history
 alias grep='egrep --ignore-case --color=auto'
 alias g='egrep --ignore-case --color=auto --recursive'
-alias ll='ls -l'
-alias la='ls -a'
+if [ -f ~/.dotfiles/bin/lsd ]; then
+  alias l='~/.dotfiles/bin/lsd -al'
+  alias ll='~/.dotfiles/bin/lsd -l'
+  alias la='~/.dotfiles/bin/lsd -a'
+else
+  alias l='ls -hasl'
+  alias ll='ls -l'
+  alias la='ls -a'
+fi
 alias tf='tail -f'
 alias mkdir='mkdir -pv'
 alias sha1='openssl sha1'
@@ -95,7 +102,6 @@ if `type pygmentize >/dev/null 2>&1` ; then
   alias c='pygmentize -O style=monokai -f console256 -g'
 fi
 
-alias l='ls -hasl'
 alias ..='cd ..'
 alias ...='cd ../..'
 

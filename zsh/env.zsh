@@ -14,19 +14,21 @@ if [ -x /usr/libexec/path_helper ]; then
    eval `/usr/libexec/path_helper -s`
 fi
 
-export PATH=~/.node/bin:/usr/local/sbin:/usr/local/bin:~/.dotfiles/bin:~/.composer/vendor/bin:$PATH
+export PATH=~/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:$PATH
+
+[ -d ~/.composer/vendor/bin ] && export PATH=~/.composer/vendor/bin:$PATH
+[ -d ~/.node/bin ] && export PATH=~/.node/bin:$PATH
+[ -d ~/.cargo/bin ] && export PATH=~/.cargo/bin:$PATH
+[ -d /usr/local/opt/ruby/bin ] && export PATH=/usr/local/opt/ruby/bin:$PATH
+
+if `type gem >/dev/null 2>&1`; then
+  RUBYBINPATH=`gem env | grep "EXECUTABLE DIRECTORY" | awk  '{ print $4 }'`
+  export PATH=$RUBYBINPATH:$PATH
+fi
+
 #export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7
-export PYTHONPATH=~/.python/PYTHONPATH #/usr/local/lib/python3.3/site-packages:/usr/local/lib/python2.7/site-packages:/System/Library/Frameworks/Python.framework/Versions/Current
+#export PYTHONPATH=~/.python/PYTHONPATH #/usr/local/lib/python3.3/site-packages:/usr/local/lib/python2.7/site-packages:/System/Library/Frameworks/Python.framework/Versions/Current
 export PYTHONSTARTUP=~/.pythonrc
 
 # for gpg curses gui
 export GPG_TTY=`tty`
-
-# osx only vars
-if [[ "$OSTYPE" =~ darwin ]]; then
-    # set default virsh connect uri for tesserakt
-    export VIRSH_DEFAULT_CONNECT_URI='qemu+ssh://tesserakt/system?socket=/var/run/libvirt/libvirt-sock'
-    if [[ -a  /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt ]]; then
-      export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
-    fi
-fi
