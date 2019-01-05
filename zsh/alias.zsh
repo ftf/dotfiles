@@ -72,10 +72,8 @@ if [[ "$OSTYPE" =~ darwin ]]; then
   ## Open current directory
   alias oo='open .'
 
-  alias bubu='brew update && brew upgrade'
+  alias bubu='brew update && brew upgrade && brew cleanup'
   #alias cleanservices='/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain system -domain user'
-
-  alias tc='/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt'
 
   alias nginx-up='sudo /usr/local/sbin/nginx -g "daemon on;"'
   alias nginx-down='sudo nginx -s stop'
