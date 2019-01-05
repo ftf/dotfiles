@@ -23,6 +23,7 @@ set number
 " if has('gui_running')
 "   color inkpot
 " endif
+set diffopt+=algorithm:patience
 
 "Enable spell checking
 set spell
