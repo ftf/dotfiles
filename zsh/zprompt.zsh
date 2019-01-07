@@ -60,9 +60,18 @@ function suspended_jobs() {
   fi
 }
 
+function checkssh() {
+  if [ -z ${SSH_CLIENT+x} ]; then
+    # nothing to do
+  else
+    echo "%{$fg_bold[green]%}🖇️  `hostname -s` %{$reset_color%}"
+  fi
+}
+RPROMPT=$(checkssh)
+
 if [ "$USER" = 'root' ] ; then
  # base_prompt="%{$fg_bold[red]%}%m%k%{$reset_color%} "
-  base_prompt="%{$fg_bold[red]|%{$reset_color%} "
+  base_prompt="%{$fg_bold[red]%}|%{$reset_color%} "
 else
   #base_prompt="%{$fg[blue]%}%n%{$fg_bold[green]%}@%m%k%{$reset_color%} "
   base_prompt="%{$fg[green]%}|%{$reset_color%} "
