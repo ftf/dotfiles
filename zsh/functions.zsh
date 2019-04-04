@@ -273,6 +273,18 @@ if `type emerge >/dev/null 2>&1`; then
   function mg() {
       grep "$@" /var/log/messages
   }
+
+  function lxc() {
+    if [[ `mount | grep '/var/tmp' | grep noexec | wc -l` -eq 1 ]]; then
+      print -P \["%F{198}*%f"\] remounting /var/tmp with exec,suid
+      mount -o remount,exec,suid /var/tmp
+      /usr/bin/lxc $@
+      print -P \["%F{198}*%f"\] remounting /var/tmp with noexec,nosuid
+      mount -o remount,noexec,nosuid /var/tmp
+    else
+      /usr/bin/lxc $@
+    fi
+  }
 fi
 
 
