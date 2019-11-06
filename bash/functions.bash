@@ -102,6 +102,27 @@ fi
 
 # OS X only functions
 if [[ "$OSTYPE" =~ darwin ]]; then
+
+  # Generate new xkcd style password an copy it to the clipboarf
+  function getpw()
+  {
+    if [ -z "$1" ]; then
+      LENGTH=4
+    else
+      LENGTH=$1
+    fi
+    SEPERATORPOOL=('-' '.' '_' ':')
+    SEPERATORSEED=$$$(date +%s)
+    SEPERATORRANDOM=$((SEPERATORSEED % ${#SEPERATORPOOL[@]}))
+    SEPERATOR=${SEPERATORPOOL[$SEPERATORRANDOM % ${#SEPERATORPOOL[@]} ]}
+
+    curl -s -L "https://xkcd.pw/${LENGTH}"|
+      sed -e "s/ /${SEPERATOR}/g" |
+      tr -d  "\n" |
+      pbcopy
+    echo "New ${LENGTH} word xkcd style password copied to your clipboard fine sir"
+  }
+
   manp()
   {
     man -t "${1}" | open -f -a Skim
