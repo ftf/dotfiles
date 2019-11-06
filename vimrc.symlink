@@ -78,6 +78,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'gavocanov/vim-js-indent'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'arcticicestudio/nord-vim'
 Plug 'wikitopian/hardmode'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-commentary'
@@ -88,7 +89,8 @@ call plug#end()
 
 
 " set stylesheet
-color kellys
+" color kellys
+color nord
 
 " set leader to something
 let mapleader = "\<SPACE>"
